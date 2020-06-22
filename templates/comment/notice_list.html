@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Notifications
+{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <div class="row mt-4 ml-4">
+            <a href="{% url "comment:notice_update" %}" class="btn btn-warning" role="button">Clear all
+                notifications</a>
+        </div>
+        <!-- Unread notice list -->
+        <div class="row mt-2 ml-4">
+            <ul class="list-group">
+                {% for notice in notices %}
+                    <li class="list-group-item" id="notice_link">
+                        <a href="{% url "comment:notice_update" %}?notice_id={{ notice.id }}&site_id={{ notice.target.site_id }}&task_name={{ notice.description }}"
+                           target="_blank">
+                            <span style="color: #5897fb;">
+                                {{ notice.actor }}
+                            </span>
+                            {{ notice.verb }}
+                            <span style="color: #01a252;">{{ notice.description }}</span>
+                            under
+                            <span style="color: #01a252;">{{ notice.target.site_id }}</span>
+                            to
+                            <span style="color: #5897fb;">
+                                {{ notice.recipient }}
+                            </span>.
+                        </a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ notice.timestamp|date:"Y/m/d H:i" }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Checked notice list -->
+
+    </div>
+
+    <style>
+        #notice_link a:link {
+            color: black;
+        }
+
+        #notice_link a:visited {
+            color: lightgrey;
+        }
+    </style>
+{% endblock content %}

@@ -1,0 +1,281 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load index %}
+
+{% block title %} Site Details {% endblock %}
+
+{% block css %}
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+    <!--<link href="{% static 'css/timeline.css' %}" rel="stylesheet">-->
+
+    <!-- Custom styles for this page -->
+    <link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+
+
+{% endblock %}
+
+
+{% block breadcrumb %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'sitedb:site_list' %}">Site Table</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ site_detail_info.site_id }}</li>
+        </ol>
+    </nav>
+{% endblock %}
+
+{% block content %}
+    <div>
+        <a href="{% url 'sitedb:site_log_list' site_detail_info.site_id %}"
+           class="btn btn-info btn-icon-split btn-sm float-md-right mr-2">
+            {#                            <span class="icon text-white-50">#}
+            {#                                <i class="fas fa-trash"></i>#}
+            {#                            </span>#}
+            <span class="text">View Operation Logs</span>
+        </a>
+
+        <a href="{% url 'sitedb:site_update_info' site_detail_info.site_id %}"
+           class="btn btn-info btn-icon-split btn-sm float-md-right mr-1">
+            {#                            <span class="icon text-white-50">#}
+            {#                                <i class="fas fa-check"></i>#}
+            {#                            </span>#}
+            <span class="text">Edit Site Info</span>
+        </a>
+    </div>
+    <br>
+
+    <div class="container-fluid">
+
+
+        <br>
+
+        <div class="row justify-content-md-center">
+
+            <div class="col-xl-12 card shadow mb-4">
+                <div class="card-header py-3">
+                    <h3 class="m-0 font-weight-bold text-center text-primary">{{ site_detail_info.site_id }}</h3>
+                </div>
+                {#                <div class="card-body">#}
+                {#                    <h4 class="small font-weight-bold">Rollout Progress <span#}
+                {#                            class="float-right">{{ site_detail_info.site_status }}0%</span>#}
+                {#                    </h4>#}
+                {#                    <div class="progress">#}
+                {#                        <div class="progress-bar bg-success" role="progressbar"#}
+                {#                             style="width: {{ site_detail_info.site_status }}0%" aria-valuenow="100"#}
+                {#                             aria-valuemin="0" aria-valuemax="100"></div>#}
+                {#                    </div>#}
+                {#                </div>#}
+
+                <div class="row">
+
+
+                    <table class="table table-bordered success">
+                        <thead>
+                        <tr>
+                            <th>Site ID</th>
+                            <td>{{ site_detail_info.site_id }}</td>
+                        </tr>
+                        <tr>
+                            <th class="info">Site Name</th>
+                            <td>{{ site_detail_info.site_name }}</td>
+                        </tr>
+                        <tr>
+                            <th class="info">Latitude</th>
+                            <td>{{ site_detail_info.site_lat }}</td>
+                        </tr>
+                        <tr>
+                            <th class="info">Longitude</th>
+                            <td>{{ site_detail_info.site_long }}</td>
+                        </tr>
+                        <tr>
+                            <th class="info">State</th>
+                            <td>{{ site_detail_info.site_state }}</td>
+                        </tr>
+                        <tr>
+                            <th class="info">Cluster</th>
+                            <td>{{ site_detail_info.site_cluster }}</td>
+                        </tr>
+                        <tr>
+                            <th class="info">Pole Owner</th>
+                            <td>{{ site_detail_info.site_pole_owner }}</td>
+                        </tr>
+                        <tr>
+                            <th class="info">Pole ID</th>
+                            <td>{{ site_detail_info.site_pole_id }}</td>
+                        </tr>
+
+                        <tr>
+                            <th class="info">RFNSA ID</th>
+                            <td>{{ site_detail_info.site_rfnsa_id|default:"-" }}</td>
+                        </tr>
+                        <tr>
+                            <th class="info">ACMA ID</th>
+                            <td>{{ site_detail_info.site_acma_id|default:"-" }}</td>
+                        </tr>
+
+
+                        </thead>
+
+                    </table>
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <div class="container py-2">
+        <!--        <h2 class="font-weight-light text-center text-muted py-3">Rollout Progress</h2>-->
+        <!--        <h3 class="m-0 font-weight-bold text-center text-primary">{{test_id_info}}</h3>-->
+        <h3 class="m-0 font-weight-bold text-center text-primary">Pending Tasks</h3>
+
+        <br>
+        <!-- timeline item 1 -->
+        {% for i in loop_times %}
+            <div class="row">
+                {% if task_name|index:i == "Site Completed" %}
+                    <div class="col-auto text-center flex-column d-none d-sm-flex">
+                        <div class="row h-50">
+                            <div class="col border-right">&nbsp;</div>
+                            <div class="col">&nbsp;</div>
+                        </div>
+                        <h5 class="m-2">
+                            <span class="badge badge-pill bg-success">&nbsp;</span>
+                        </h5>
+                        <div class="row h-50">
+                            <div class="col border-right">&nbsp;</div>
+                            <div class="col">&nbsp;</div>
+                        </div>
+                    </div>
+                    <div class="col py-2">
+                        <div class="card border-success shadow">
+                            <div class="card-body">
+                                <div class="float-right text-success }}">
+                                    Completed
+                                </div>
+                                <h4 class="card-title text-success">
+                                    {{ task_name|index:i }}
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="col-auto text-center flex-column d-none d-sm-flex">
+                        <div class="row h-50">
+                            <div class="col border-right">&nbsp;</div>
+                            <div class="col">&nbsp;</div>
+                        </div>
+                        <h5 class="m-2">
+                            <span class="badge badge-pill bg-warning">&nbsp;</span>
+                        </h5>
+                        <div class="row h-50">
+                            <div class="col border-right">&nbsp;</div>
+                            <div class="col">&nbsp;</div>
+                        </div>
+                    </div>
+                    <div class="col py-2">
+                        <div class="card border-success shadow">
+                            <div class="card-body">
+                                <div class="float-right text-warning }}">
+                                    Ongoing - {{ candidate_group|index:i }}
+                                </div>
+                                <h4 class="card-title text-warning">
+                                    <a href="{% url 'sitedb:milestone_task' task_name=task_url|index:i site_id=site_detail_info.site_id %}"
+                                       style="color: #4e73df;">{{ task_name|index:i }}</a>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+            </div>
+
+        {% endfor %}
+
+
+    </div>
+
+    <!-- Comments of the site -->
+
+        <div class="col-lg-12 mb-4">
+
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">{{ comments.count }} Comments</h6>
+                </div>
+                <div class="card-body">
+
+                    <div>
+                    {% for comment in comments %}
+                        <hr>
+                        <p>
+                            <strong style="color: pink">
+                                {{ comment.user }}
+                            </strong> on
+                            <span style="color: green">
+                        {{ comment.created|date:"Y-m-d H:i:s" }}
+                    </span> posted：
+                        </p>
+                        <pre style="font-family: inherit; font-size: 1em;">{{ comment.body }}</pre>
+                    {% endfor %}
+                </div>
+                </div>
+            <div class="col-9">
+                {% if user.is_authenticated %}
+                    <div>
+                        <form action="{% url 'comment:post_comment' site_detail_info.site_id %}" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="body">
+                                    <strong>
+                                        Leave comments：
+                                    </strong>
+                                </label>
+                                <textarea
+                                        type="text"
+                                        class="form-control"
+                                        id="body"
+                                        name="body"
+                                        rows="4"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary ">Submit</button>
+                        </form>
+                    </div>
+                    <br>
+                {% else %}
+                    <br>
+                    <h5 class="row justify-content-center">
+                        Please<a href="{% url 'userprofile:login' %}"> login</a> first
+                    </h5>
+                    <br>
+                {% endif %}
+
+            </div>
+            </div>
+
+
+        </div>
+
+
+{% endblock %}
+
+
+{% block script %}
+
+    <!-- Page level plugins -->
+    <script src="{% static 'vendor/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{% static 'js/demo/datatables-demo.js' %}"></script>
+
+
+{% endblock %}
+

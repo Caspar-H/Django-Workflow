@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">{{ r_task.name }} - {{ site_id }}</h1>
+        </div>
+        <!-- Content Row -->
+        <div class="row">
+
+            <!-- Telstra Card  -->
+            <div class="col-xl-6 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-s font-weight-bold text-primary text-uppercase mb-1">Task Info</div>
+                                <br>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">Current
+                                    Assignee: {{ r_task.assignee }}</div>
+                                <br>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">Start
+                                    Time: {{ r_task.created }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-phone fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if r_task.assignee %}
+            <div>
+                <a href="{% url "sitedb:unclaim_task" task_name site_id r_task.id %}"
+                   class="btn btn-warning btn-icon-split float-md-left">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-check"></i>
+                            </span>
+                    <span class="text">Unclaim</span>
+                </a>
+
+            </div>
+            {% if r_task.assignee == user.get_username %}
+                <div>
+                    <a href="{% url "sitedb:complete_task" task_name site_id r_task.id %}"
+                       class="btn btn-danger btn-icon-split float-md-right">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-check"></i>
+                            </span>
+                        <span class="text">Complete</span>
+                    </a>
+                </div>
+            {% endif %}
+        {% else %}
+            <div>
+                <a href="{% url "sitedb:claim_task" task_name site_id r_task.id %}"
+                   class="btn btn-success btn-icon-split float-md-left">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-check"></i>
+                            </span>
+                    <span class="text">Claim</span>
+                </a>
+
+            </div>
+        {% endif %}
+
+    </div>
+
+{% endblock %}
