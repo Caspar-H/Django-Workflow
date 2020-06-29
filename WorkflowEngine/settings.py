@@ -79,13 +79,24 @@ WSGI_APPLICATION = 'WorkflowEngine.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'djworkflow',
+    #     'USER': 'caspar',
+    #     'PASSWORD': 'hpf6600',
+    #     'PORT': 3306,
+    #     'HOST': '127.0.0.1',
+    #     'OPTIONS': {
+    #         "init_command": "SET foreign_key_checks = 0;",
+    #     }
+    # }
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'djworkflow',
         'USER': 'caspar',
-        'PASSWORD': 'hpf6600',
-        'PORT': 3306,
-        'HOST': '127.0.0.1',
+        'PASSWORD': 'tpg12345',
+        'PORT': 3307,
+        'HOST': '10.224.45.19',
         'OPTIONS': {
             "init_command": "SET foreign_key_checks = 0;",
         }
