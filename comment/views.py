@@ -56,8 +56,7 @@ class CommentNoticeUpdateView(View):
 
         if site_id:
             request.user.notifications.get(id=notice_id).mark_as_read()
-            return reverse('sitedb:milestone_task', args={'task_name': task_name, 'site_id': site_id})
-            # return redirect('sitedb:home')
+            return redirect('sitedb:milestone_task', task_name=task_name, site_id=site_id)
 
         else:
             request.user.notifications.mark_all_as_read()

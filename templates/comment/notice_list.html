@@ -6,39 +6,108 @@
 {% endblock title %}
 
 {% block content %}
-    <div class="container">
-        <div class="row mt-4 ml-4">
-            <a href="{% url "comment:notice_update" %}" class="btn btn-warning" role="button">Clear all
-                notifications</a>
-        </div>
-        <!-- Unread notice list -->
-        <div class="row mt-2 ml-4">
-            <ul class="list-group">
-                {% for notice in notices %}
-                    <li class="list-group-item" id="notice_link">
-                        <a href="{% url "comment:notice_update" %}?notice_id={{ notice.id }}&site_id={{ notice.target.site_id }}&task_name={{ notice.description }}"
-                           target="_blank">
+    <div class="col-lg-8 mb-4">
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Unread Notices</h6>
+                <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                         aria-labelledby="dropdownMenuLink">
+                        <div class="dropdown-header">Options:</div>
+                        <a class="dropdown-item" href="{% url "comment:notice_update" %}">Clear all noticifations</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div class="row mt-2 ml-4">
+                    <ul class="list-group">
+                        {% for notice in notices %}
+                            <li class="list-group-item" id="notice_link">
+                                <a href="{% url "comment:notice_update" %}?notice_id={{ notice.id }}&site_id={{ notice.target.site_id }}&task_name={{ notice.description }}"
+                                   target="_blank">
                             <span style="color: #5897fb;">
                                 {{ notice.actor }}
                             </span>
-                            {{ notice.verb }}
-                            <span style="color: #01a252;">{{ notice.description }}</span>
-                            under
-                            <span style="color: #01a252;">{{ notice.target.site_id }}</span>
-                            to
-                            <span style="color: #5897fb;">
+                                    {{ notice.verb }}
+                                    <span style="color: #01a252;">{{ notice.description }}</span>
+                                    under
+                                    <span style="color: #01a252;">{{ notice.target.site_id }}</span>
+                                    to
+                                    <span style="color: #5897fb;">
                                 {{ notice.recipient }}
                             </span>.
-                        </a>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ notice.timestamp|date:"Y/m/d H:i" }}
-                    </li>
-                {% endfor %}
-            </ul>
+                                </a>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ notice.timestamp|date:"Y/m/d H:i" }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+            </div>
+
         </div>
 
-        <!-- Checked notice list -->
 
     </div>
+
+
+    <div class="col-lg-8 mb-4">
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Read Notices</h6>
+{#                <div class="dropdown no-arrow">#}
+{#                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"#}
+{#                       aria-haspopup="true" aria-expanded="false">#}
+{#                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>#}
+{#                    </a>#}
+{#                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"#}
+{#                         aria-labelledby="dropdownMenuLink">#}
+{#                        <div class="dropdown-header">Options:</div>#}
+{#                        <a class="dropdown-item" href="{% url "comment:notice_update" %}">Clear all noticifations</a>#}
+{#                    </div>#}
+{#                </div>#}
+            </div>
+
+            <div class="card-body">
+                <div class="row mt-2 ml-4">
+                    <ul class="list-group">
+                        {% for notice in read_notices %}
+                            <li class="list-group-item" id="notice_link">
+                                <a href="{% url "comment:notice_update" %}?notice_id={{ notice.id }}&site_id={{ notice.target.site_id }}&task_name={{ notice.description }}"
+                                   target="_blank">
+                            <span style="color: #5897fb;">
+                                {{ notice.actor }}
+                            </span>
+                                    {{ notice.verb }}
+                                    <span style="color: #01a252;">{{ notice.description }}</span>
+                                    under
+                                    <span style="color: #01a252;">{{ notice.target.site_id }}</span>
+                                    to
+                                    <span style="color: #5897fb;">
+                                {{ notice.recipient }}
+                            </span>.
+                                </a>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ notice.timestamp|date:"Y/m/d H:i" }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
 
     <style>
         #notice_link a:link {
