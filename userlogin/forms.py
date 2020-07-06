@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
+from django import forms
 
-from userlogin.models import User
+from userlogin.models import User, UserSetting
 
 
 class RFSignUpForm(UserCreationForm):
@@ -41,3 +42,14 @@ class ManagerSignUpForm(UserCreationForm):
             user.save()
         return user
 
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'email')
+
+
+class UserSettingForm(forms.ModelForm):
+    class Meta:
+        model = UserSetting
+        fields = ('email_notification', )

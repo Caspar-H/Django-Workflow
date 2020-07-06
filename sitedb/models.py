@@ -29,7 +29,6 @@ class Site(models.Model):
         db_table = 'site_basic'
 
 
-
 class SiteLogInfo(models.Model):
     log_site_id = models.CharField(max_length=16, verbose_name='log_site_id')
 

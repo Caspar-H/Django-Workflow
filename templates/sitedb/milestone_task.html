@@ -40,7 +40,7 @@
                             <span class="icon text-white-50">
                                 <i class="fas fa-check"></i>
                             </span>
-                    <span class="text">Unclaim</span>
+                    <span class="text">Unclaim the task</span>
                 </a>
 
             </div>
@@ -51,18 +51,29 @@
                             <span class="icon text-white-50">
                                 <i class="fas fa-check"></i>
                             </span>
-                        <span class="text">Complete</span>
+                        <span class="text">Complete the task</span>
                     </a>
                 </div>
             {% endif %}
         {% else %}
-            <div>
+            <div class="row">
                 <a href="{% url "sitedb:claim_task" task_name site_id r_task.id %}"
                    class="btn btn-success btn-icon-split float-md-left">
                             <span class="icon text-white-50">
                                 <i class="fas fa-check"></i>
                             </span>
-                    <span class="text">Claim</span>
+                    <span class="text">Claim the task</span>
+                </a>
+
+            </div>
+            <br>
+            <div class="row">
+                <a href="{% url "sitedb:assign_task" task_name site_id r_task.id %}"
+                   class="btn btn-success btn-icon-split float-md-left">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-check"></i>
+                            </span>
+                    <span class="text">Assign the task</span>
                 </a>
 
             </div>

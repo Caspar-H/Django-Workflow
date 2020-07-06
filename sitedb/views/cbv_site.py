@@ -126,3 +126,19 @@ class SiteLogListView(ListView):
         # To call site_current_percentage in Templates , {{site_current_percentage}}
         context['site_id'] = self.kwargs['site_id']
         return context
+
+
+# Log List/Detail/Update View
+class UserLogListView(ListView):
+    model = SiteLogInfo
+    context_object_name = 'user_logs'
+    template_name = 'sitedb/log_user_list.html'
+
+    def get_queryset(self):
+        return SiteLogInfo.objects.all().filter(log_user=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super(UserLogListView, self).get_context_data(**kwargs)
+        # To call site_current_percentage in Templates , {{site_current_percentage}}
+        context['user'] = self.request.user
+        return context

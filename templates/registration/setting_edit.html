@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block title %} Edit Profile {% endblock %}
+
+{% block css %}
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+    <!--<link href="{% static 'css/timeline.css' %}" rel="stylesheet">-->
+
+    <!-- Custom styles for this page -->
+    <link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+
+
+{% endblock %}
+
+{#{% block breadcrumb %}#}
+{#    <nav aria-label="breadcrumb">#}
+{#        <ol class="breadcrumb">#}
+{#            <li class="breadcrumb-item"><a href="{% url 'sitedb:site_list' %}">Site Table</a></li>#}
+{#            <li class="breadcrumb-item"><a href="{% url 'sitedb:site_detail_info' site_id %}">{{ site_id }}</a></li>#}
+{#            <li class="breadcrumb-item active" aria-current="page">Edit Site Info</li>#}
+{#        </ol>#}
+{#    </nav>#}
+{#{% endblock %}#}
+
+{% block content %}
+
+    <div class="row justify-content-md-center">
+
+        <div class="col-xl-10 card shadow mb-4">
+            <div class="card-header py-3">
+                <h3 class="m-0 font-weight-bold text-center text-primary">{{ site_id }}</h3>
+            </div>
+            {#                <form action="{% url 'sitedb:edit_site_basic' form.site_id %}" method="post">#}
+            <form action="" method="post">
+                {% csrf_token %}
+
+                <div class="form-row">
+                    <div class="form-group col-md-12 mb-0">
+                        {{ setting_form.email_notification|as_crispy_field }}
+                    </div>
+                </div>
+
+                <div>
+
+                    <button type="submit" value="Update" class="btn btn-primary btn-icon-split float-md-right">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-check"></i>
+                            </span>
+                        <span class="text">Update</span>
+                    </button>
+                </div>
+
+            </form>
+            <br>
+
+        </div>
+
+
+    </div>
+
+{% endblock %}
+
+
+{% block script %}
+
+    <!-- Page level plugins -->
+    <script src="{% static 'vendor/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{% static 'js/demo/datatables-demo.js' %}"></script>
+{% endblock %}
+

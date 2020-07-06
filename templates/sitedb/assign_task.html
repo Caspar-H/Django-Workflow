@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">{{ r_task.name }} - {{ site_id }}</h1>
+        </div>
+        <!-- Content Row -->
+        <div class="row">
+
+            <!-- Telstra Card  -->
+            <div class="col-xl-6 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-s font-weight-bold text-primary text-uppercase mb-1">Task Info</div>
+                                <br>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">Current
+                                    Assignee: {{ r_task.assignee }}</div>
+                                <br>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">Start
+                                    Time: {{ r_task.created }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-phone fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    <form class="form-inline" method="POST">
+        {% csrf_token %}
+        <label class="my-1 mr-2" for="assignee">Assign the task to : </label>
+        <select class="custom-select my-1 mr-sm-2" id="assignee" name="assignee">
+            <option selected>Choose...</option>
+            {% for user_name in user_list %}
+
+                <option value={{user_name}}>{{user_name}}</option>
+
+            {% endfor %}
+
+        </select>
+        <button type="submit" class="btn btn-primary my-1">Assign</button>
+    </form>
+
+    </div>
+{% endblock %}

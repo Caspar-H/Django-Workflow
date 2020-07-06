@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'comment',
     'mptt',
     'notifications',
+    'fileupload',
 ]
 
 MIDDLEWARE = [
@@ -79,28 +80,28 @@ WSGI_APPLICATION = 'WorkflowEngine.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'djworkflow',
-    #     'USER': 'caspar',
-    #     'PASSWORD': 'hpf6600',
-    #     'PORT': 3306,
-    #     'HOST': '127.0.0.1',
-    #     'OPTIONS': {
-    #         "init_command": "SET foreign_key_checks = 0;",
-    #     }
-    # }
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'djworkflow',
         'USER': 'caspar',
-        'PASSWORD': 'tpg12345',
-        'PORT': 3307,
-        'HOST': '10.224.45.19',
+        'PASSWORD': 'hpf6600',
+        'PORT': 3306,
+        'HOST': '127.0.0.1',
         'OPTIONS': {
             "init_command": "SET foreign_key_checks = 0;",
         }
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'djworkflow',
+    #     'USER': 'caspar',
+    #     'PASSWORD': 'tpg12345',
+    #     'PORT': 3307,
+    #     'HOST': '10.224.45.19',
+    #     'OPTIONS': {
+    #         "init_command": "SET foreign_key_checks = 0;",
+    #     }
+    # }
 }
 
 # Password validation
@@ -159,3 +160,12 @@ LOGOUT_URL = 'userlogin:logout'
 LOGIN_REDIRECT_URL = 'sitedb:home'
 
 LOGOUT_REDIRECT_URL = 'userlogin:login'
+
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'smtp.caspar@gmail.com'
+EMAIL_HOST_PASSWORD = 'smtp6600'
