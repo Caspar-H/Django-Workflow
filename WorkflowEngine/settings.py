@@ -128,6 +128,7 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Australia/Sydney'
+# TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
@@ -161,11 +162,13 @@ LOGIN_REDIRECT_URL = 'sitedb:home'
 
 LOGOUT_REDIRECT_URL = 'userlogin:login'
 
-
-
+# Email related
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'smtp.caspar@gmail.com'
 EMAIL_HOST_PASSWORD = 'smtp6600'
+
+# Minio file server
+MINIO_HOST = 'localhost:9000'

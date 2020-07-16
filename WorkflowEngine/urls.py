@@ -24,4 +24,6 @@ urlpatterns = [
     path('sitedb/', include('sitedb.urls', namespace='sitedb')),
     path('comment/', include('comment.urls', namespace='comment')),
     path('userlogin/', include('userlogin.urls', namespace='userlogin')),
+    path('fileupload/', include('fileupload.urls', namespace='fileupload')),
+
 ]

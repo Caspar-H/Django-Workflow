@@ -806,7 +806,7 @@ function Sizzle( selector, context, results, seed ) {
 			// Take advantage of querySelectorAll
 			if ( support.qsa &&
 				!nonnativeSelectorCache[ selector + " " ] &&
-				(!rbuggyQSA || !rbuggyQSA.test( selector )) &&
+				(!rbuggyQSA || !rbuggyQSA.documents_folder( selector )) &&
 
 				// Support: IE 8 only
 				// Exclude object elements
@@ -1502,8 +1502,8 @@ Sizzle.matchesSelector = function( elem, expr ) {
 
 	if ( support.matchesSelector && documentIsHTML &&
 		!nonnativeSelectorCache[ expr + " " ] &&
-		( !rbuggyMatches || !rbuggyMatches.test( expr ) ) &&
-		( !rbuggyQSA     || !rbuggyQSA.test( expr ) ) ) {
+		( !rbuggyMatches || !rbuggyMatches.documents_folder( expr ) ) &&
+		( !rbuggyQSA     || !rbuggyQSA.documents_folder( expr ) ) ) {
 
 		try {
 			var ret = matches.call( elem, expr );
@@ -8889,7 +8889,7 @@ function ajaxHandleResponses( s, jqXHR, responses ) {
 	// Check if we're dealing with a known content-type
 	if ( ct ) {
 		for ( type in contents ) {
-			if ( contents[ type ] && contents[ type ].test( ct ) ) {
+			if ( contents[ type ] && contents[ type ].documents_folder( ct ) ) {
 				dataTypes.unshift( type );
 				break;
 			}
