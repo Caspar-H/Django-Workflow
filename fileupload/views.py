@@ -25,7 +25,7 @@ def documents_folder(request):
 
         folder_list = []
         file_list = []
-
+        current_path = prefix = request.GET.get('prefix', '')
         for obj in objects:
             # print(obj.bucket_name, obj.object_name.encode('utf-8'), obj.last_modified,
             #       obj.etag, obj.size, obj.content_type, obj.is_dir)
@@ -53,7 +53,7 @@ def documents_download(request):
         object_name = request.GET.get('object_name')
         data = minioClient.get_object(bucket_name, object_name)
 
-        file_path = '/'.join(object_name.split('/')[:-1])+'/'
+        file_path = '/'.join(object_name.split('/')[:-1]) + '/'
         if file_path == '/':
             file_path = ''
 
@@ -97,7 +97,6 @@ def documents_download(request):
 
 
 def documents_download_v2(request):
-
     try:
         root = tkinter.Tk()
         root.withdraw()
@@ -121,3 +120,32 @@ def documents_download_v2(request):
     except ResponseError as err:
         print(err)
 
+
+def documents_upload(request):
+    file_path = request.POST.get('current_path')
+    print(request.POST)
+    if request.method == "POST":
+        try:
+            selected_file = request.FILES["selected_file"]
+            selected_file_name = request.FILES["selected_file"].name
+            print(selected_file)
+            print(file_path)
+
+            try:
+                with open(selected_file, 'rb') as file_data:
+                    file_stat = os.stat('my-testfile')
+                    print(minioClient.put_object(bucket_name, file_path+'/'+selected_file_name,
+                                                 file_data, file_stat.st_size))
+            except ResponseError as err:
+                print(err)
+
+        except Exception as e:
+            print(e)
+            print("Unable to upload file. ")
+
+        response = redirect('fileupload:documents_folder')
+        response['Location'] += '?prefix={}'.format(file_path)
+
+        return response
+    else:
+        return HttpResponse("Only POST request is accepted")

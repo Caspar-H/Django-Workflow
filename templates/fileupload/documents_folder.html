@@ -20,7 +20,7 @@
                     <img src="{% static 'bootstrap-icons-1.0.0-alpha5/folder.svg' %}" alt="" width="32" height="30"
                          size="10"
                          title="Bootstrap">
-                    <a href="{% url 'fileupload:documents_folder' %}?prefix={{folder.object_name}}">{{ folder.folder_name }}</a>
+                    <a href="{% url 'fileupload:documents_folder' %}?prefix={{ folder.object_name }}">{{ folder.folder_name }}</a>
                     <br>
                     <br>
                 {% endfor %}
@@ -37,5 +37,58 @@
         </div>
     </div>
 
+    <div class="col-lg-8 mb-4">
+        <form action="{% url "fileupload:documents_upload" %}?prefix={{ current_path }}" method="POST" enctype="multipart/form-data"
+              class="form-horizontal">
+            {% csrf_token %}
+
+            <div class="input-group">
+                <input type="text" class="form-control input-file-dummy" placeholder="Choose file"
+                       aria-describedby="fileHelp" required>
+                <div class="valid-feedback order-last">File is valid</div>
+                <div class="invalid-feedback order-last">File is required</div>
+                <label class="input-group-append mb-0">
+                    <span class="btn btn-primary input-file-btn">
+                      Browse… <input type="file" name="selected_file" id="selected_file" required="True" class="form-control" hidden>
+                    </span>
+                    <input type="hidden" name="current_path" value="{{ current_path }}">
+                </label>
+            </div>
+            <small id="fileHelp" class="form-text text-muted">Choose any file you like</small>
+            <br>
+            <div class="input-group">
+                <div class="form-group">
+                    <div class="col-md-6 col-sm-6 col-xs-12" style="margin-bottom:10px;">
+                        <button class="btn btn-primary">
+                            <span class="glyphicon glyphicon-upload" style="margin-right:5px;"></span>Upload
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
 
 {% endblock content %}
+
+{% block script %}
+
+    <script>
+        $(function () {
+            $('.input-file-dummy').each(function () {
+                $($(this).parent().find('.input-file-btn input')).on('change', {dummy: this}, function (ev) {
+                    $(ev.data.dummy)
+                        .val($(this).val().replace(/\\/g, '/').replace(/.*\//, ''))
+                        .trigger('focusout');
+                });
+                $(this).on('focusin', function () {
+                    $(this).attr('readonly', '');
+                }).on('focusout', function () {
+                    $(this).removeAttr('readonly');
+                }).on('click', function () {
+                    $(this).parent().find('.input-file-btn').click();
+                });
+            });
+        });
+    </script>
+{% endblock %}
