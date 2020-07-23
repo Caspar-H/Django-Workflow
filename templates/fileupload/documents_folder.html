@@ -2,76 +2,154 @@
 {% load static %}
 
 {% block title %}
-    Notifications
+    Documents
 {% endblock title %}
+
+{% block css %}
+
+
+    <!-- Custom styles for this page -->
+    <link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+
+    <!-- Bootstrap Datatable styles for this page -->
+    <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet"
+          type="text/css">
+
+
+{% endblock %}
 
 {% block content %}
 
-    <div class="col-lg-8 mb-4">
+    {#    <div class="col-lg-8 mb-4">#}
+    {##}
+    {#        <div class="card shadow mb-4">#}
+    {##}
+    {#            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">#}
+    {#                <h6 class="m-0 font-weight-bold text-primary">Documents</h6>#}
+    {#            </div>#}
+    {##}
+    {#            <div class="card-body">#}
+    {#                {% for folder in folder_list %}#}
+    {#                    <img src="{% static 'bootstrap-icons-1.0.0-alpha5/folder.svg' %}" alt="" width="32" height="30"#}
+    {#                         size="10"#}
+    {#                         title="Bootstrap">#}
+    {#                    <a href="{% url 'fileupload:documents_folder' %}?prefix={{ folder.object_name }}">{{ folder.folder_name }}</a>#}
+    {#                    <br>#}
+    {#                    <br>#}
+    {#                {% endfor %}#}
+    {##}
+    {#                {% for file in file_list %}#}
+    {#                    <img src="{% static 'bootstrap-icons-1.0.0-alpha5/file-text.svg' %}" alt="" width="32" height="30"#}
+    {#                         size="10"#}
+    {#                         title="Bootstrap">#}
+    {#                    <a href="{% url 'fileupload:documents_download' %}?object_name={{ file.object_name }}">{{ file.file_name }}</a>#}
+    {#                    <br>#}
+    {#                    <br>#}
+    {#                {% endfor %}#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </div>#}
 
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        {#    <h1 class="h3 mb-2 text-gray-800">Small Cell Site Table</h1>#}
+
+
+        <!-- DataTales Example -->
         <div class="card shadow mb-4">
-
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Documents</h6>
             </div>
-
             <div class="card-body">
-                {% for folder in folder_list %}
-                    <img src="{% static 'bootstrap-icons-1.0.0-alpha5/folder.svg' %}" alt="" width="32" height="30"
-                         size="10"
-                         title="Bootstrap">
-                    <a href="{% url 'fileupload:documents_folder' %}?prefix={{ folder.object_name }}">{{ folder.folder_name }}</a>
-                    <br>
-                    <br>
-                {% endfor %}
+                <div class="table-responsive">
+                    {#                    <table class="table table-bordered display" id="dataTable" width="100%" cellspacing="0">#}
+                    <table id="example" class="display nowrap" style="width:100%">
+                        <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Name</th>
+                            <th>Uploaded</th>
+                            <th>Size</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>Type</th>
+                            <th>Name</th>
+                            <th>Uploaded</th>
+                            <th>Size</th>
+                        </tr>
+                        </tfoot>
+                        <tbody>
 
-                {% for file in file_list %}
-                    <img src="{% static 'bootstrap-icons-1.0.0-alpha5/file-text.svg' %}" alt="" width="32" height="30"
-                         size="10"
-                         title="Bootstrap">
-                    <a href="{% url 'fileupload:documents_download' %}?object_name={{ file.object_name }}">{{ file.file_name }}</a>
-                    <br>
-                    <br>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
+                        {% for folder in folder_list %}
+                            <tr>
+                                <td>/Folder</td>
+                                <td>
+                                    <img src="{% static 'bootstrap-icons-1.0.0-alpha5/folder.svg' %}" alt="" width="32"
+                                         height="30"
+                                         size="10"
+                                         title="Bootstrap">
+                                    <a href="{% url 'fileupload:documents_folder' %}?prefix={{ folder.object_name }}">{{ folder.folder_name }}</a>
+                                </td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                        {% endfor %}
 
-    <div class="col-lg-8 mb-4">
-        <form action="{% url "fileupload:documents_upload" %}?prefix={{ current_path }}" method="POST" enctype="multipart/form-data"
-              class="form-horizontal">
-            {% csrf_token %}
+                        {% for file in file_list %}
+                            <tr>
+                                <td>File</td>
+                                <td>
+                                    <img src="{% static 'bootstrap-icons-1.0.0-alpha5/file-text.svg' %}" alt=""
+                                         width="32"
+                                         height="30"
+                                         size="10"
+                                         title="Bootstrap">
+                                    <a href="{% url 'fileupload:documents_download' %}?object_name={{ file.object_name }}">{{ file.file_name }}</a>
+                                </td>
+                                <td>{{file.last_modified}}</td>
+                                <td>{{file.size}}</td>
+                            </tr>
+                        {% endfor %}
 
-            <div class="input-group">
-                <input type="text" class="form-control input-file-dummy" placeholder="Choose file"
-                       aria-describedby="fileHelp" required>
-                <div class="valid-feedback order-last">File is valid</div>
-                <div class="invalid-feedback order-last">File is required</div>
-                <label class="input-group-append mb-0">
-                    <span class="btn btn-primary input-file-btn">
-                      Browse… <input type="file" name="selected_file" id="selected_file" required="True" class="form-control" hidden>
-                    </span>
-                    <input type="hidden" name="current_path" value="{{ current_path }}">
-                </label>
-            </div>
-            <small id="fileHelp" class="form-text text-muted">Choose any file you like</small>
-            <br>
-            <div class="input-group">
-                <div class="form-group">
-                    <div class="col-md-6 col-sm-6 col-xs-12" style="margin-bottom:10px;">
-                        <button class="btn btn-primary">
-                            <span class="glyphicon glyphicon-upload" style="margin-right:5px;"></span>Upload
-                        </button>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-        </form>
+        </div>
+
+    </div>
+
+    <div>
+        <div class="input-group">
+            <div class="form-group">
+                <div class="col-md-6 col-sm-6 col-xl-12" style="margin-bottom:10px;">
+                    <a href="{% url 'fileupload:documents_upload' %}?prefix={{ current_path }}"
+                       class="btn btn-primary" role="button">Upload</a>
+                </div>
+            </div>
+        </div>
     </div>
 
 
 {% endblock content %}
 
 {% block script %}
+    <script src="{% static 'bootstrapdatatables/customizedDatatables.js' %}"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
 
     <script>
         $(function () {
