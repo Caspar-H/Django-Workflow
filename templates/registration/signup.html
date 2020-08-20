@@ -24,20 +24,35 @@
                             </div>
 
                             <div class="col text-center">
-                                <a href="{% url 'userlogin:rf_signup' %}"
+                                <a href="{% url 'userlogin:tpg_rf_signup' %}"
                                    class="btn btn-success btn-icon-split btn-lg mr-2">
-                                    <span class="text">I'm a RF Engineer</span>
+                                    <span class="text">I'm a TPG RF Engineer</span>
                                 </a>
 
-                                <a href="{% url 'userlogin:eme_signup' %}"
+                                <a href="{% url 'userlogin:tpg_eme_signup' %}"
                                    class="btn btn-success btn-icon-split btn-lg mr-2">
-                                    <span class="text">I'm a EME Engineer</span>
+                                    <span class="text">I'm a TPG EME Engineer</span>
                                 </a>
 
-                                <a href="{% url 'userlogin:manager_signup' %}"
-                                   class="btn btn-success btn-icon-split btn-lg mr-1">
-                                    <span class="text">I'm a Manager</span>
+                                <a href="{% url 'userlogin:tpg_pm_signup' %}"
+                                   class="btn btn-success btn-icon-split btn-lg mr-2">
+                                    <span class="text">I'm a TPG PM</span>
                                 </a>
+
+                                <a href="{% url 'userlogin:tpg_saed_signup' %}"
+                                   class="btn btn-success btn-icon-split btn-lg mr-2">
+                                    <span class="text">I'm a TPG SAED Engineer</span>
+                                </a>
+
+                                <br>
+                                <br>
+
+                                <a href="{% url 'userlogin:vha_rf_signup' %}"
+                                   class="btn btn-success btn-icon-split btn-lg mr-2">
+                                    <span class="text">I'm a VHA RF Engineer</span>
+                                </a>
+
+
 
                             </div>
 

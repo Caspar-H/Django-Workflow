@@ -6,9 +6,11 @@ from django.db import models
 
 
 class User(AbstractUser):
-    is_rf = models.BooleanField(default=False)
-    is_eme = models.BooleanField(default=False)
-    is_manager = models.BooleanField(default=False)
+    is_vha_rf = models.BooleanField(default=False)
+    is_tpg_rf = models.BooleanField(default=False)
+    is_tpg_saed = models.BooleanField(default=False)
+    is_tpg_pm = models.BooleanField(default=False)
+    is_tpg_eme = models.BooleanField(default=False)
 
 
 class UserSetting(models.Model):
@@ -17,3 +19,4 @@ class UserSetting(models.Model):
 
     def __str__(self):
         return 'user {}'.format(self.user.username)
+

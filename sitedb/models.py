@@ -9,12 +9,12 @@ class Site(models.Model):
     site_name = models.CharField(max_length=64, unique=True, verbose_name='Site Name')
     site_lat = models.FloatField(verbose_name='Latitude')
     site_long = models.FloatField(verbose_name='Longitude')
-    site_cluster = models.CharField(max_length=64, verbose_name="Cluster")
+    # site_cluster = models.CharField(max_length=64, verbose_name="Cluster")
     site_state = models.CharField(max_length=32, verbose_name='State')
-    site_pole_owner = models.CharField(max_length=64, verbose_name='Pole Owner')
-    site_pole_id = models.CharField(max_length=64, verbose_name='Pole ID')
-    site_rfnsa_id = models.CharField(max_length=12, unique=True, null=True, verbose_name='RFNSA ID')
-    site_acma_id = models.CharField(max_length=12, unique=True, null=True, verbose_name='ACMA ID')
+    # site_pole_owner = models.CharField(max_length=64, verbose_name='Pole Owner')
+    # site_pole_id = models.CharField(max_length=64, verbose_name='Pole ID')
+    # site_rfnsa_id = models.CharField(max_length=12, unique=True, null=True, verbose_name='RFNSA ID')
+    # site_acma_id = models.CharField(max_length=12, unique=True, null=True, verbose_name='ACMA ID')
 
     def __str__(self):
         return self.site_id

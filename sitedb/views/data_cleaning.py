@@ -9,10 +9,10 @@ from sitedb.models import Site
 
 
 def load_site_data(request):
-    file_path = os.path.join(BASE_DIR, 'sitedb/test_data/test_site_data.xlsx')
+    file_path = os.path.join(BASE_DIR, 'sitedb/test_data/newsite.xlsx')
     raw_data = pd.read_excel(file_path, 'Sheet1')
 
-    raw_data['acma_id'] = raw_data['acma_id'].astype('Int64')
+    # raw_data['acma_id'] = raw_data['acma_id'].astype('Int64')
     # raw_data = raw_data[:5]
 
     for index, row in raw_data.iterrows():
@@ -21,12 +21,12 @@ def load_site_data(request):
         new_site.site_name = row['site_name']
         new_site.site_lat = row['latitude']
         new_site.site_long = row['longitude']
-        new_site.site_cluster = row['cluster_name']
+        # new_site.site_cluster = row['cluster_name']
         new_site.site_state = row['state']
-        new_site.site_pole_owner = row['pole_owner']
-        new_site.site_pole_id = row['pole_id']
-        new_site.site_rfnsa_id = row['rfnsa_id'] if not pd.isnull(row['rfnsa_id']) else None
-        new_site.site_acma_id = row['acma_id'] if not pd.isnull(row['acma_id']) else None
+        # new_site.site_pole_owner = row['pole_owner']
+        # new_site.site_pole_id = row['pole_id']
+        # new_site.site_rfnsa_id = row['rfnsa_id'] if not pd.isnull(row['rfnsa_id']) else None
+        # new_site.site_acma_id = row['acma_id'] if not pd.isnull(row['acma_id']) else None
 
         new_site.save()
     return HttpResponse('Data Loaded')

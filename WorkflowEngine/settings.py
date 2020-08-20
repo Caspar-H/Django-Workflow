@@ -82,8 +82,8 @@ WSGI_APPLICATION = 'WorkflowEngine.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'djworkflow',
-        'USER': 'caspar',
+        'NAME': 'ranrefresh',
+        'USER': 'root',
         'PASSWORD': 'hpf6600',
         'PORT': 3306,
         'HOST': '127.0.0.1',
