@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, UpdateView
 
+from WorkflowEngine.settings import CAMUNDA_HOST, WORKFLOW_NAME
 from comment.models import Comment
 from sitedb.forms import SiteForm
 from sitedb.models import Site, SiteLogInfo
@@ -44,30 +45,36 @@ class SiteDetailView(DetailView):
 
         # Get milestone info
         business_key = self.kwargs['site_id']
-        url_task_name = "http://localhost:8080/engine-rest/task"
+        url_task_name = "{}/task".format(CAMUNDA_HOST)
         query_param = {
             "processInstanceBusinessKey": business_key,
-            "processDefinitionKey": "RFEMEWorkflow"
+            "processDefinitionKey": WORKFLOW_NAME
         }
         r_task_name = requests.get(url_task_name, params=query_param).json()
-
+        print(r_task_name)
         # Get Candidate group
         task_num = len(r_task_name)
         context['loop_times'] = range(task_num)
         context['task_name'] = []
         context['task_url'] = []
         context['candidate_group'] = []
+        # candidate_group_mapping = {
+        #     'emeteam': 'EME Team',
+        #     'rfteam': 'RF Team'
+        # }
         candidate_group_mapping = {
-            'emeteam': 'EME Team',
-            'rfteam': 'RF Team'
+            'vharf': 'VHA RF Team',
+            'tpgrf': 'TPG RF Team',
+            'tpgeme': 'TPG EME Team',
+            'tpgpm': 'TPG PM Team',
+            'tpgsaed': 'TPG SAED Team'
         }
         for item in range(task_num):
             context['task_name'].append(r_task_name[item]['name'])
             context['task_url'].append(r_task_name[item]['taskDefinitionKey'])
 
             # Candidate Group
-            url_candidate_group = "http://localhost:8080/engine-rest/task/{}/identity-links".format(
-                r_task_name[item]['id'])
+            url_candidate_group = "{}/task/{}/identity-links".format(CAMUNDA_HOST, r_task_name[item]['id'])
             r_candidate_group = requests.get(url_candidate_group).json()[0]['groupId']
             context['candidate_group'].append(candidate_group_mapping[r_candidate_group])
 

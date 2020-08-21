@@ -172,3 +172,8 @@ EMAIL_HOST_PASSWORD = 'smtp6600'
 
 # Minio file server
 MINIO_HOST = 'localhost:9000'
+
+# Camunda host address
+CAMUNDA_HOST = 'http://localhost:8080/engine-rest'
+WORKFLOW_NAME = 'RANREFRESH'
+

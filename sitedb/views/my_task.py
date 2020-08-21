@@ -1,12 +1,14 @@
 import requests
 from django.shortcuts import render
 
+from WorkflowEngine.settings import CAMUNDA_HOST, WORKFLOW_NAME
+
 
 def my_task(request):
     # business key and instance key mapping table
-    url_mapping = "http://localhost:8080/engine-rest/process-instance/"
+    url_mapping = "{}/process-instance/".format(CAMUNDA_HOST)
     query_param_mapping = {
-        "processDefinitionKey": "RFEMEWorkflow"
+        "processDefinitionKey": WORKFLOW_NAME
     }
     r_mapping = requests.get(url_mapping, params=query_param_mapping).json()
     business_key_mapping = {}
@@ -14,9 +16,9 @@ def my_task(request):
         business_key_mapping[item['id']] = item['businessKey']
 
     # Get site list under a certain user
-    url_user_task = "http://localhost:8080/engine-rest/task"
+    url_user_task = "{}/task".format(CAMUNDA_HOST)
     query_param = {
-        "processDefinitionKey": "RFEMEWorkflow",
+        "processDefinitionKey": WORKFLOW_NAME,
         "assignee": request.user.get_username(),
     }
     r_user_task = requests.get(url_user_task, params=query_param).json()
@@ -36,9 +38,9 @@ def my_task(request):
 
 def my_group_task(request):
     # business key and instance key mapping table
-    url_mapping = "http://localhost:8080/engine-rest/process-instance/"
+    url_mapping = "{}/process-instance/".format(CAMUNDA_HOST)
     query_param_mapping = {
-        "processDefinitionKey": "RFEMEWorkflow"
+        "processDefinitionKey": WORKFLOW_NAME
     }
     r_mapping = requests.get(url_mapping, params=query_param_mapping).json()
     business_key_mapping = {}
@@ -46,16 +48,16 @@ def my_group_task(request):
         business_key_mapping[item['id']] = item['businessKey']
 
     # Get group name
-    url_group_name = "http://localhost:8080/engine-rest/group/"
+    url_group_name = "{}/group/".format(CAMUNDA_HOST)
     query_param = {
         "member": request.user.get_username()
     }
     r_group_name = requests.get(url_group_name, params=query_param).json()[0]
 
     # Get site list under a group
-    url_group_task = "http://localhost:8080/engine-rest/task"
+    url_group_task = "{}/task".format(CAMUNDA_HOST)
     query_param = {
-        "processDefinitionKey": "RFEMEWorkflow",
+        "processDefinitionKey": WORKFLOW_NAME,
         "candidateGroup": r_group_name['id'],
         "includeAssignedTasks": 'true'
     }
@@ -67,7 +69,7 @@ def my_group_task(request):
         item['businessKey'] = business_key_mapping[item['processInstanceId']]
 
     # Group member performance
-    url_user_list = "http://localhost:8080/engine-rest/user"
+    url_user_list = "{}/user".format(CAMUNDA_HOST)
     query_param = {
         'memberOfGroup': r_group_name['id']
     }
@@ -76,9 +78,9 @@ def my_group_task(request):
     user_count = []
     for user_name in user_list:
         # Get site list under a certain user
-        url_user_task = "http://localhost:8080/engine-rest/task"
+        url_user_task = "{}/task".format(CAMUNDA_HOST)
         query_param = {
-            "processDefinitionKey": "RFEMEWorkflow",
+            "processDefinitionKey": WORKFLOW_NAME,
             "candidateGroup": r_group_name['id'],
             "includeAssignedTasks": 'true',
             "assignee": user_name,
