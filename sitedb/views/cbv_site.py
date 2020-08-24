@@ -51,7 +51,6 @@ class SiteDetailView(DetailView):
             "processDefinitionKey": WORKFLOW_NAME
         }
         r_task_name = requests.get(url_task_name, params=query_param).json()
-        print(r_task_name)
         # Get Candidate group
         task_num = len(r_task_name)
         context['loop_times'] = range(task_num)

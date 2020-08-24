@@ -46,13 +46,32 @@
             </div>
             {% if r_task.assignee == user.get_username %}
                 <div>
-                    <a href="{% url "sitedb:complete_task" task_name site_id r_task.id %}"
-                       class="btn btn-danger btn-icon-split float-md-right">
+                    {% if r_task.taskDefinitionKey == 'form_a' %}
+                        <a href="{% url "sitedb:complete_gateway_task" task_name site_id r_task.id%}"
+                           class="btn btn-danger btn-icon-split float-md-right">
                             <span class="icon text-white-50">
                                 <i class="fas fa-check"></i>
                             </span>
-                        <span class="text">Complete the task</span>
-                    </a>
+                            <span class="text">Form A Fail</span>
+                        </a>
+                        <a href="{% url "sitedb:complete_gateway_task" task_name site_id r_task.id%}?gateway_choice=True"
+                           class="btn btn-success btn-icon-split float-md-right">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            <span class="text">Form A Pass</span>
+                        </a>
+                    {% else %}
+                        <a href="{% url "sitedb:complete_task" task_name site_id r_task.id %}"
+                           class="btn btn-danger btn-icon-split float-md-right">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            <span class="text">Complete the task</span>
+                        </a>
+
+                    {% endif %}
+
                 </div>
             {% endif %}
         {% else %}

@@ -22,6 +22,8 @@ urlpatterns = [
     path('claim/<str:task_name>/<str:site_id>/<str:ins_id>', views.claim_task, name='claim_task'),
     path('unclaim/<str:task_name>/<str:site_id>/<str:ins_id>', views.unclaim_task, name='unclaim_task'),
     path('complete/<str:task_name>/<str:site_id>/<str:ins_id>', views.complete_task, name='complete_task'),
+    path('complete_gateway/<str:task_name>/<str:site_id>/<str:ins_id>', views.complete_gateway_task,
+         name='complete_gateway_task'),
     path('assign/<str:task_name>/<str:site_id>/<str:ins_id>', views.assign_task, name='assign_task'),
 
     path('my_task/', views.my_task, name='my_task'),

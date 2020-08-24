@@ -179,6 +179,27 @@ def complete_task(request, task_name, site_id, ins_id):
     return HttpResponseRedirect(reverse('sitedb:site_detail_info', kwargs={'site_id': site_id}))
 
 
+# Based on template feedback to decide next milestone
+def complete_gateway_task(request, task_name, site_id, ins_id):
+    url_claim = "{}/task/{}/complete".format(CAMUNDA_HOST, ins_id)
+    gateway_choice = True if request.GET.get('gateway_choice') else False
+    print(type(gateway_choice))
+    json_content = {"variables":
+                        {"formaPass": {"value": gateway_choice}}
+                    }
+    r_complete = requests.post(url_claim, json=json_content, headers={'Content-Type': 'application/json'})
+
+    new_log = SiteLogInfo()
+    new_log.log_user = request.user.get_username()
+    new_log.log_site_id = site_id
+    new_log.log_info = 'Task {} completed and gateway choice is {}'.format(task_name, gateway_choice)
+    new_log.save()
+
+    messages.success(request, "Task {} was completed successfully.".format(task_name))
+
+    return HttpResponseRedirect(reverse('sitedb:site_detail_info', kwargs={'site_id': site_id}))
+
+
 def milestone_overview(request):
     team_dict = {'vharf': 'VHA RF Team', 'tpgrf': 'TPG RF Team',
                  'tpgeme': 'TPG EME Team', 'tpgpm': 'TPG PM Team', 'tpgsaed': 'TPG SAED Team'}
@@ -194,7 +215,6 @@ def milestone_overview(request):
         r_task = requests.get(url_task, params=query_param).json()
 
         task_df = pd.DataFrame(r_task)
-        print(task_df)
         if not task_df.empty:
             task_count = task_df[['id', 'taskDefinitionKey', 'name']].groupby(['name', 'taskDefinitionKey']).agg(
                 'count').reset_index(drop=False).values.tolist()
