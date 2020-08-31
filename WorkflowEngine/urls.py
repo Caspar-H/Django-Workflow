@@ -25,5 +25,6 @@ urlpatterns = [
     path('comment/', include('comment.urls', namespace='comment')),
     path('userlogin/', include('userlogin.urls', namespace='userlogin')),
     path('fileupload/', include('fileupload.urls', namespace='fileupload')),
+    path('wfautonmation/', include('wfautomation.urls', namespace='wfautomation')),
 
 ]

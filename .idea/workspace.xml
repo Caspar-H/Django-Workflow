@@ -3,10 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="8cb91b89-e926-4e71-9f9a-dea60f4afbfb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sitedb/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/sitedb/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sitedb/views/cbv_site.py" beforeDir="false" afterPath="$PROJECT_DIR$/sitedb/views/cbv_site.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sitedb/views/milestone.py" beforeDir="false" afterPath="$PROJECT_DIR$/sitedb/views/milestone.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/sitedb/milestone_task.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/sitedb/milestone_task.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WorkflowEngine/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/WorkflowEngine/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WorkflowEngine/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/WorkflowEngine/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,8 +62,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -240,7 +239,10 @@
       <workItem from="1597885779382" duration="8299000" />
       <workItem from="1597906185504" duration="3000" />
       <workItem from="1597968424906" duration="10532000" />
-      <workItem from="1598224645456" duration="7888000" />
+      <workItem from="1598224645456" duration="8889000" />
+      <workItem from="1598265024460" duration="3000" />
+      <workItem from="1598397705823" duration="1834000" />
+      <workItem from="1598834345940" duration="11536000" />
     </task>
     <servers />
   </component>
@@ -248,6 +250,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="478" y="215" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1598835355523">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="478" y="215" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824@0.0.1536.824" timestamp="1598835355523" />
     <state x="549" y="168" key="FileChooserDialogImpl" timestamp="1597888505472">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -256,9 +262,9 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="270" y="55" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1597888513681" />
-    <state x="449" y="237" key="com.intellij.ide.util.TipDialog" timestamp="1598225130764">
+    <state x="449" y="237" key="com.intellij.ide.util.TipDialog" timestamp="1598834347369">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="449" y="237" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1598225130764" />
+    <state x="449" y="237" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1598834347369" />
   </component>
 </project>

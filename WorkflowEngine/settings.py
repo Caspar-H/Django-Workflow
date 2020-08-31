@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'mptt',
     'notifications',
     'fileupload',
+    'wfautomation',
 ]
 
 MIDDLEWARE = [
