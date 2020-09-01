@@ -1,0 +1,89 @@
+#image: allentpg/djangotest
+image: docker/compose:latest
+stages:
+  - build1
+  - build2
+  - deploy
+
+build-image-ranrefresh:
+  stage: build1
+  before_script:
+    #- docker stop dashboard_test || true && docker rm dashboard_test || true
+    #- docker stack rm dj-dashboard || true
+    - docker rmi allentpg/dj-workflow || true
+  script:
+    - docker build -t allentpg/dj-workflow:latest .
+  only:
+    # on which branch the stage would run
+    - ranrefresh
+    
+build-image-master:
+  stage: build2
+  before_script:
+    #- docker stop dashboard_test || true && docker rm dashboard_test || true
+    #- docker stack rm dj-dashboard || true
+    - docker rmi allentpg/dj-workflow-master || true
+  script:
+    - docker build -t allentpg/dj-workflow-master:latest .
+  only:
+    # on which branch the stage would run
+    - master
+
+deploy-ranrefresh:
+    stage: deploy
+    image: google/cloud-sdk
+    variables:
+        KUBERNETES_SERVICE_ACCOUNT_OVERWRITE: gitlab-admin
+        KUBERNETES_SERVICE_ACCOUNT_OVERWRITE_ALLOWED: gitlab-admin
+    before_script:
+        #- apk add --update curl && rm -rf /var/cache/apk/*
+        #- curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl 
+        #- chmod +x ./kubectl
+        - docker login -u allentpg -p Summer2019
+        - docker push allentpg/dj-workflow:latest
+    script:
+        #- docker rmi $(docker images -q --filter "dangling=true") || true
+        #- docker run --name test allentpg/dj-dashboard /bin/bash -c "python3 manage.py test"
+        #- docker stop test3 || true && docker rm test3 || true
+        #- docker rmi test3 || true
+        #- docker build -t test3 .
+        #- docker run -d --name test3 --restart=unless-stopped -p 8070:8000 test3 /bin/bash -c "python3 manage.py runserver 0.0.0.0:8000"
+        #- kubectl get pod -n kube-system
+        - kubectl apply -f deployment.yml -f service.yml -n gitlab-managed-apps
+        #kubectl version
+    tags:
+        - rfk8s
+    only:
+    # on which branch the stage would run
+        - ranrefresh
+        
+deploy-master:
+    stage: deploy
+    image: google/cloud-sdk
+    variables:
+        KUBERNETES_SERVICE_ACCOUNT_OVERWRITE: gitlab-admin
+        KUBERNETES_SERVICE_ACCOUNT_OVERWRITE_ALLOWED: gitlab-admin
+    before_script:
+        #- apk add --update curl && rm -rf /var/cache/apk/*
+        #- curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl 
+        #- chmod +x ./kubectl
+        - docker login -u allentpg -p Summer2019
+        - docker push allentpg/dj-workflow-master:latest
+    script:
+        #- docker rmi $(docker images -q --filter "dangling=true") || true
+        #- docker run --name test allentpg/dj-dashboard /bin/bash -c "python3 manage.py test"
+        #- docker stop test3 || true && docker rm test3 || true
+        #- docker rmi test3 || true
+        #- docker build -t test3 .
+        #- docker run -d --name test3 --restart=unless-stopped -p 8070:8000 test3 /bin/bash -c "python3 manage.py runserver 0.0.0.0:8000"
+        #- kubectl get pod -n kube-system
+        - kubectl apply -f deployment-master.yml -f service-master.yml -n gitlab-managed-apps
+        #kubectl version
+    tags:
+        - rfk8s
+    only:
+    # on which branch the stage would run
+        - master
+
+
+
