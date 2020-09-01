@@ -22,9 +22,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'nfn#6a-0cuqs=%mvxy&s56p9ur2ibf8xe@id=@2lyrykg8lvp!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -84,10 +84,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ranrefresh',
-        'USER': 'root',
-        'PASSWORD': 'hpf6600',
-        'PORT': 3306,
-        'HOST': '127.0.0.1',
+        'USER': 'caspar',
+        'PASSWORD': 'tpg12345',
+        'PORT': 30010,
+        'HOST': '10.224.44.127',
         'OPTIONS': {
             "init_command": "SET foreign_key_checks = 0;",
         }
