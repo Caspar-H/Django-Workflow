@@ -14,6 +14,12 @@ build-image-ranrefresh:
     - docker rmi allentpg/dj-workflow || true
   script:
     - docker build -t allentpg/dj-workflow:latest .
+  after_script:
+        #- apk add --update curl && rm -rf /var/cache/apk/*
+        #- curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl 
+        #- chmod +x ./kubectl
+    - docker login -u allentpg -p Summer2019
+    - docker push allentpg/dj-workflow:latest
   tags:
     - image
   only:
@@ -28,6 +34,12 @@ build-image-master:
     - docker rmi allentpg/dj-workflow-master || true
   script:
     - docker build -t allentpg/dj-workflow-master:latest .
+  after_script:
+        #- apk add --update curl && rm -rf /var/cache/apk/*
+        #- curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl 
+        #- chmod +x ./kubectl
+    - docker login -u allentpg -p Summer2019
+    - docker push allentpg/dj-workflow-master:latest
   tags:
     - image
   only:
@@ -40,12 +52,7 @@ deploy-ranrefresh:
     variables:
         KUBERNETES_SERVICE_ACCOUNT_OVERWRITE: gitlab-admin
         KUBERNETES_SERVICE_ACCOUNT_OVERWRITE_ALLOWED: gitlab-admin
-    before_script:
-        #- apk add --update curl && rm -rf /var/cache/apk/*
-        #- curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl 
-        #- chmod +x ./kubectl
-        - docker login -u allentpg -p Summer2019
-        - docker push allentpg/dj-workflow:latest
+
     script:
         #- docker rmi $(docker images -q --filter "dangling=true") || true
         #- docker run --name test allentpg/dj-dashboard /bin/bash -c "python3 manage.py test"
@@ -68,12 +75,7 @@ deploy-master:
     variables:
         KUBERNETES_SERVICE_ACCOUNT_OVERWRITE: gitlab-admin
         KUBERNETES_SERVICE_ACCOUNT_OVERWRITE_ALLOWED: gitlab-admin
-    before_script:
-        #- apk add --update curl && rm -rf /var/cache/apk/*
-        #- curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl 
-        #- chmod +x ./kubectl
-        - docker login -u allentpg -p Summer2019
-        - docker push allentpg/dj-workflow-master:latest
+
     script:
         #- docker rmi $(docker images -q --filter "dangling=true") || true
         #- docker run --name test allentpg/dj-dashboard /bin/bash -c "python3 manage.py test"
