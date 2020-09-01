@@ -14,6 +14,8 @@ build-image-ranrefresh:
     - docker rmi allentpg/dj-workflow || true
   script:
     - docker build -t allentpg/dj-workflow:latest .
+  tags:
+    - rfk8s
   only:
     # on which branch the stage would run
     - allen
@@ -26,6 +28,8 @@ build-image-master:
     - docker rmi allentpg/dj-workflow-master || true
   script:
     - docker build -t allentpg/dj-workflow-master:latest .
+  tags:
+    - rfk8s
   only:
     # on which branch the stage would run
     - master
