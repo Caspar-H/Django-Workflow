@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dj-workflow
+  labels:
+    name: dj-workflow
+spec:
+  selector:
+    matchLabels:
+      app: dj-workflow
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: dj-workflow
+    spec:
+      serviceAccountName: gitlab-admin
+      containers:
+      - name: dj-workflow
+        image: allentpg/dj-workflow-master
+        #command: [bash -c "gunicorn --timeout=30 --workers=4 --bind :8000 CarrierAnalysis.wsgi:application"]
+        command: ["python", "./manage.py", "runserver", "0.0.0.0:8000"]
+        ports:
+        - containerPort: 8000
