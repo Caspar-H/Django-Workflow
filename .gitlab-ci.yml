@@ -24,7 +24,7 @@ build-image-ranrefresh:
     - image
   only:
     # on which branch the stage would run
-    - allen
+    - ranrefresh
     
 build-image-master:
   stage: build-master
@@ -61,13 +61,14 @@ deploy-ranrefresh:
         #- docker build -t test3 .
         #- docker run -d --name test3 --restart=unless-stopped -p 8070:8000 test3 /bin/bash -c "python3 manage.py runserver 0.0.0.0:8000"
         #- kubectl get pod -n kube-system
+        - kubectl delete -f deployment.yml -f service.yml -n gitlab-managed-apps
         - kubectl apply -f deployment.yml -f service.yml -n gitlab-managed-apps
         #kubectl version
     tags:
         - rfk8s
     only:
     # on which branch the stage would run
-        - allen
+        - ranrefresh
         
 deploy-master:
     stage: deploy-master
@@ -84,6 +85,7 @@ deploy-master:
         #- docker build -t test3 .
         #- docker run -d --name test3 --restart=unless-stopped -p 8070:8000 test3 /bin/bash -c "python3 manage.py runserver 0.0.0.0:8000"
         #- kubectl get pod -n kube-system
+        - kubectl delete -f deployment-master.yml -f service-master.yml -n gitlab-managed-apps
         - kubectl apply -f deployment-master.yml -f service-master.yml -n gitlab-managed-apps
         #kubectl version
     tags:
