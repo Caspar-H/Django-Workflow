@@ -18,6 +18,7 @@ spec:
       containers:
       - name: dj-workflow-master
         image: allentpg/dj-workflow-master
+        imagePullPolicy: Always
         #command: [bash -c "gunicorn --timeout=30 --workers=4 --bind :8000 CarrierAnalysis.wsgi:application"]
         command: ["python", "./manage.py", "runserver", "0.0.0.0:8000"]
         ports:
