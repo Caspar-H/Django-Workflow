@@ -1,12 +1,13 @@
 #image: allentpg/djangotest
 image: docker/compose:latest
 stages:
-  - build1
-  - build2
-  - deploy
+  - build-ranrefresh
+  - build-master
+  - deploy-ranrefresh
+  - deploy-master
 
 build-image-ranrefresh:
-  stage: build1
+  stage: build-ranrefresh
   before_script:
     #- docker stop dashboard_test || true && docker rm dashboard_test || true
     #- docker stack rm dj-dashboard || true
@@ -18,7 +19,7 @@ build-image-ranrefresh:
     - ranrefresh
     
 build-image-master:
-  stage: build2
+  stage: build-master
   before_script:
     #- docker stop dashboard_test || true && docker rm dashboard_test || true
     #- docker stack rm dj-dashboard || true
@@ -30,7 +31,7 @@ build-image-master:
     - master
 
 deploy-ranrefresh:
-    stage: deploy
+    stage: deploy-ranrefresh
     image: google/cloud-sdk
     variables:
         KUBERNETES_SERVICE_ACCOUNT_OVERWRITE: gitlab-admin
@@ -58,7 +59,7 @@ deploy-ranrefresh:
         - ranrefresh
         
 deploy-master:
-    stage: deploy
+    stage: deploy-master
     image: google/cloud-sdk
     variables:
         KUBERNETES_SERVICE_ACCOUNT_OVERWRITE: gitlab-admin
