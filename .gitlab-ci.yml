@@ -16,7 +16,7 @@ build-image-ranrefresh:
     - docker build -t allentpg/dj-workflow:latest .
   only:
     # on which branch the stage would run
-    - ranrefresh
+    - allen
     
 build-image-master:
   stage: build-master
@@ -56,7 +56,7 @@ deploy-ranrefresh:
         - rfk8s
     only:
     # on which branch the stage would run
-        - ranrefresh
+        - allen
         
 deploy-master:
     stage: deploy-master
