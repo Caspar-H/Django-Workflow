@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dj-dashboard
+  labels:
+    name: dj-dashboard
+spec:
+  selector:
+    matchLabels:
+      app: dj-dashboard
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: dj-dashboard
+    spec:
+      serviceAccountName: gitlab-admin
+      containers:
+      - name: dj-dashboard
+        image: allentpg/dj-workflow
+        #command: [bash -c "gunicorn --timeout=30 --workers=4 --bind :8000 CarrierAnalysis.wsgi:application"]
+        command: ["python", "./manage.py", "runserver", "0.0.0.0:8000"]
+        ports:
+        - containerPort: 8000
