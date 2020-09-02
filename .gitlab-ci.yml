@@ -1,10 +1,60 @@
 #image: allentpg/djangotest
 image: docker/compose:latest
 stages:
+  - remove-ranrefresh
+  - remove-master
   - build-ranrefresh
   - build-master
   - deploy-ranrefresh
   - deploy-master
+
+remove-ranrefresh:
+    stage: deploy-ranrefresh
+    image: google/cloud-sdk
+    variables:
+        KUBERNETES_SERVICE_ACCOUNT_OVERWRITE: gitlab-admin
+        KUBERNETES_SERVICE_ACCOUNT_OVERWRITE_ALLOWED: gitlab-admin
+
+    script:
+        #- docker rmi $(docker images -q --filter "dangling=true") || true
+        #- docker run --name test allentpg/dj-dashboard /bin/bash -c "python3 manage.py test"
+        #- docker stop test3 || true && docker rm test3 || true
+        #- docker rmi test3 || true
+        #- docker build -t test3 .
+        #- docker run -d --name test3 --restart=unless-stopped -p 8070:8000 test3 /bin/bash -c "python3 manage.py runserver 0.0.0.0:8000"
+        #- kubectl get pod -n kube-system
+        - kubectl delete -f deployment.yml -f service.yml -n gitlab-managed-apps
+        #- kubectl apply -f deployment.yml -f service.yml -n gitlab-managed-apps
+        #kubectl version
+    tags:
+        - rfk8s
+    only:
+    # on which branch the stage would run
+        - ranrefresh
+
+remove-master:
+    stage: remove-master
+    image: google/cloud-sdk
+    variables:
+        KUBERNETES_SERVICE_ACCOUNT_OVERWRITE: gitlab-admin
+        KUBERNETES_SERVICE_ACCOUNT_OVERWRITE_ALLOWED: gitlab-admin
+
+    script:
+        #- docker rmi $(docker images -q --filter "dangling=true") || true
+        #- docker run --name test allentpg/dj-dashboard /bin/bash -c "python3 manage.py test"
+        #- docker stop test3 || true && docker rm test3 || true
+        #- docker rmi test3 || true
+        #- docker build -t test3 .
+        #- docker run -d --name test3 --restart=unless-stopped -p 8070:8000 test3 /bin/bash -c "python3 manage.py runserver 0.0.0.0:8000"
+        #- kubectl get pod -n kube-system
+        - kubectl delete -f deployment-master.yml -f service-master.yml -n gitlab-managed-apps
+        #- kubectl apply -f deployment.yml -f service.yml -n gitlab-managed-apps
+        #kubectl version
+    tags:
+        - rfk8s
+    only:
+    # on which branch the stage would run
+        - master
 
 build-image-ranrefresh:
   stage: build-ranrefresh
@@ -61,7 +111,7 @@ deploy-ranrefresh:
         #- docker build -t test3 .
         #- docker run -d --name test3 --restart=unless-stopped -p 8070:8000 test3 /bin/bash -c "python3 manage.py runserver 0.0.0.0:8000"
         #- kubectl get pod -n kube-system
-        - kubectl delete -f deployment.yml -f service.yml -n gitlab-managed-apps
+        #- kubectl delete -f deployment.yml -f service.yml -n gitlab-managed-apps
         - kubectl apply -f deployment.yml -f service.yml -n gitlab-managed-apps
         #kubectl version
     tags:
@@ -85,7 +135,7 @@ deploy-master:
         #- docker build -t test3 .
         #- docker run -d --name test3 --restart=unless-stopped -p 8070:8000 test3 /bin/bash -c "python3 manage.py runserver 0.0.0.0:8000"
         #- kubectl get pod -n kube-system
-        - kubectl delete -f deployment-master.yml -f service-master.yml -n gitlab-managed-apps
+        #- kubectl delete -f deployment-master.yml -f service-master.yml -n gitlab-managed-apps
         - kubectl apply -f deployment-master.yml -f service-master.yml -n gitlab-managed-apps
         #kubectl version
     tags:
