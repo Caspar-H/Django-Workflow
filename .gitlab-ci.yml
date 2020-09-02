@@ -9,7 +9,7 @@ stages:
   - deploy-master
 
 remove-ranrefresh:
-    stage: deploy-ranrefresh
+    stage: remove-ranrefresh
     image: google/cloud-sdk
     variables:
         KUBERNETES_SERVICE_ACCOUNT_OVERWRITE: gitlab-admin
