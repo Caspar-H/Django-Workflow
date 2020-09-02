@@ -70,7 +70,7 @@ build-image-ranrefresh:
         #- curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl 
         #- chmod +x ./kubectl
     - docker login -u allentpg -p Summer2019
-    - docker push allentpg/dj-workflow
+    - docker push --no-trunc allentpg/dj-workflow
   tags:
     - image
   only:
@@ -91,7 +91,7 @@ build-image-master:
         #- curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl 
         #- chmod +x ./kubectl
     - docker login -u allentpg -p Summer2019
-    - docker push allentpg/dj-workflow-master
+    - docker push --no-trunc allentpg/dj-workflow-master
   tags:
     - image
   only:
