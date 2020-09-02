@@ -62,14 +62,15 @@ build-image-ranrefresh:
     #- docker stop dashboard_test || true && docker rm dashboard_test || true
     #- docker stack rm dj-dashboard || true
     - docker rmi allentpg/dj-workflow || true
+    - docker rmi $(docker images | grep "^<none>" | awk "{print $3}") || true
   script:
-    - docker build -t allentpg/dj-workflow:latest . --no-cache
+    - docker build -t allentpg/dj-workflow:latest . 
   after_script:
         #- apk add --update curl && rm -rf /var/cache/apk/*
         #- curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl 
         #- chmod +x ./kubectl
     - docker login -u allentpg -p Summer2019
-    - docker push allentpg/dj-workflow:latest
+    - docker push allentpg/dj-workflow
   tags:
     - image
   only:
@@ -82,14 +83,15 @@ build-image-master:
     #- docker stop dashboard_test || true && docker rm dashboard_test || true
     #- docker stack rm dj-dashboard || true
     - docker rmi allentpg/dj-workflow-master || true
+    - docker rmi $(docker images | grep "^<none>" | awk "{print $3}") || true
   script:
-    - docker build -t allentpg/dj-workflow-master:latest . --no-cache
+    - docker build -t allentpg/dj-workflow-master:latest . 
   after_script:
         #- apk add --update curl && rm -rf /var/cache/apk/*
         #- curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl 
         #- chmod +x ./kubectl
     - docker login -u allentpg -p Summer2019
-    - docker push allentpg/dj-workflow-master:latest
+    - docker push allentpg/dj-workflow-master
   tags:
     - image
   only:
