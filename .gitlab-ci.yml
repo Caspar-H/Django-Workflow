@@ -63,7 +63,7 @@ build-image-ranrefresh:
     #- docker stack rm dj-dashboard || true
     - docker rmi allentpg/dj-workflow || true
   script:
-    - docker build -t allentpg/dj-workflow:latest .
+    - docker build -t allentpg/dj-workflow:latest . --no-cache
   after_script:
         #- apk add --update curl && rm -rf /var/cache/apk/*
         #- curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl 
@@ -83,7 +83,7 @@ build-image-master:
     #- docker stack rm dj-dashboard || true
     - docker rmi allentpg/dj-workflow-master || true
   script:
-    - docker build -t allentpg/dj-workflow-master:latest .
+    - docker build -t allentpg/dj-workflow-master:latest . --no-cache
   after_script:
         #- apk add --update curl && rm -rf /var/cache/apk/*
         #- curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl 
