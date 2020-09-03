@@ -71,6 +71,7 @@ build-image-ranrefresh:
         #- chmod +x ./kubectl
     - docker login -u allentpg -p Summer2019
     - docker push allentpg/dj-workflow:latest
+    - docker rmi allentpg/dj-workflow || true
   tags:
     - image
   only:
@@ -92,6 +93,7 @@ build-image-master:
         #- chmod +x ./kubectl
     - docker login -u allentpg -p Summer2019
     - docker push allentpg/dj-workflow-master:latest
+    - docker rmi allentpg/dj-workflow-master || true
   tags:
     - image
   only:
