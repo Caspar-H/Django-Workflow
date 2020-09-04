@@ -65,7 +65,7 @@ build-image-ranrefresh:
     - docker rmi $(docker images | grep "^<none>" | awk "{print $3}") || true
   script:
     - docker build -t allentpg/dj-workflow:latest . 
-  after_script:
+  #after_script:
         #- apk add --update curl && rm -rf /var/cache/apk/*
         #- curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl 
         #- chmod +x ./kubectl
@@ -87,7 +87,7 @@ build-image-master:
     - docker rmi $(docker images | grep "^<none>" | awk "{print $3}") || true
   script:
     - docker build -t allentpg/dj-workflow-master:latest . 
-  after_script:
+  #after_script:
         #- apk add --update curl && rm -rf /var/cache/apk/*
         #- curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl 
         #- chmod +x ./kubectl
