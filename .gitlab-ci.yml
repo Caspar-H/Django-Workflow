@@ -73,7 +73,7 @@ build-image-ranrefresh:
     - docker push allentpg/dj-workflow:latest
     - docker rmi allentpg/dj-workflow || true
   tags:
-    - image
+    - imagerunner
   only:
     # on which branch the stage would run
     - ranrefresh
@@ -95,7 +95,7 @@ build-image-master:
     - docker push allentpg/dj-workflow-master:latest
     - docker rmi allentpg/dj-workflow-master || true
   tags:
-    - image
+    - imagerunner
   only:
     # on which branch the stage would run
     - master
