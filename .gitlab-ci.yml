@@ -1,5 +1,5 @@
 #image: allentpg/djangotest
-image: docker/compose:latest
+image: docker:19.03.12
 stages:
   - remove-ranrefresh
   - remove-master
