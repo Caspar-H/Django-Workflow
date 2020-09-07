@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'nfn#6a-0cuqs=%mvxy&s56p9ur2ibf8xe@id=@2lyrykg8lvp!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -81,28 +81,28 @@ WSGI_APPLICATION = 'WorkflowEngine.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ranrefresh',
-        'USER': 'caspar',
-        'PASSWORD': 'tpg12345',
-        'PORT': 30010,
-        'HOST': '10.224.44.127',
-        'OPTIONS': {
-            "init_command": "SET foreign_key_checks = 0;",
-        }
-    }
     # 'default': {
     #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'djworkflow',
+    #     'NAME': 'ranrefresh',
     #     'USER': 'caspar',
     #     'PASSWORD': 'tpg12345',
-    #     'PORT': 3307,
-    #     'HOST': '10.224.45.19',
+    #     'PORT': 30010,
+    #     'HOST': '10.224.44.127',
     #     'OPTIONS': {
     #         "init_command": "SET foreign_key_checks = 0;",
     #     }
     # }
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'ranrefresh',
+        'USER': 'root',
+        'PASSWORD': 'hpf6600',
+        'PORT': 3306,
+        'HOST': 'localhost',
+        'OPTIONS': {
+            "init_command": "SET foreign_key_checks = 0;",
+        }
+    }
 }
 
 # Password validation

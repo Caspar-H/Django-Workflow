@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block title %} Site Survey Info Upload Page {% endblock %}
+
+{% block css %}
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+    <!--<link href="{% static 'css/timeline.css' %}" rel="stylesheet">-->
+
+    <!-- Custom styles for this page -->
+    <link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+
+
+{% endblock %}
+
+{% block breadcrumb %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'sitedb:site_list' %}">Site Table</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'sitedb:site_detail_info' site_id %}">{{ site_id }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Site Survey Info</li>
+        </ol>
+    </nav>
+{% endblock %}
+
+{% block content %}
+
+    <div class="row justify-content-md-center">
+
+        <div class="col-xl-10 card shadow mb-4">
+            <div class="card-header py-3">
+                <h3 class="m-0 font-weight-bold text-center text-primary">{{ site_id }}</h3>
+            </div>
+
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <h4>POI 1: {{ site_poi_description.poi_1 }}</h4>
+                <div class="form-row">
+                    <div class="form-group col-md-8 mb-0">
+                        {{ form.poi_1_description|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-8 mb-0">
+                        {{ form.poi_1_measurement|as_crispy_field }}
+                    </div>
+                </div>
+                <div>
+                    <div class="form-group col-md-8 mb-0">
+                        {{ form.poi_1_document|as_crispy_field }}
+                    </div>
+                </div>
+                <br>
+                <h4>POI 2: {{ site_poi_description.poi_2 }}</h4>
+                <div class="form-row">
+                    <div class="form-group col-md-8 mb-0">
+                        {{ form.poi_2_description|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-8 mb-0">
+                        {{ form.poi_2_measurement|as_crispy_field }}
+                    </div>
+                </div>
+                <div>
+                    <div class="form-group col-md-8 mb-0">
+                        {{ form.poi_2_document|as_crispy_field }}
+                    </div>
+                </div>
+                <br>
+                <h4>POI 3: {{ site_poi_description.poi_3 }}</h4>
+                <div class="form-row">
+                    <div class="form-group col-md-8 mb-0">
+                        {{ form.poi_3_description|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-8 mb-0">
+                        {{ form.poi_3_measurement|as_crispy_field }}
+                    </div>
+                </div>
+                <div>
+                    <div class="form-group col-md-8 mb-0">
+                        {{ form.poi_3_document|as_crispy_field }}
+                    </div>
+                </div>
+                <br>
+                <h4>POI 4: {{ site_poi_description.poi_4 }}</h4>
+                <div class="form-row">
+                    <div class="form-group col-md-8 mb-0">
+                        {{ form.poi_4_description|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-8 mb-0">
+                        {{ form.poi_4_measurement|as_crispy_field }}
+                    </div>
+                </div>
+                <div>
+                    <div class="form-group col-md-8 mb-0">
+                        {{ form.poi_4_document|as_crispy_field }}
+                    </div>
+                </div>
+                <br>
+                <h4>POI 5: {{ site_poi_description.poi_5 }}</h4>
+                <div class="form-row">
+                    <div class="form-group col-md-8 mb-0">
+                        {{ form.poi_5_description|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-8 mb-0">
+                        {{ form.poi_5_measurement|as_crispy_field }}
+                    </div>
+                </div>
+                <div>
+                    <div class="form-group col-md-8 mb-0">
+                        {{ form.poi_5_document|as_crispy_field }}
+                    </div>
+                </div>
+                <br>
+
+                <div>
+                    <a href="{% url 'sitedb:site_detail_info' site_id %}"
+                       class="btn btn-secondary btn-icon-split float-md-right">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-trash"></i>
+                            </span>
+                        <span class="text">Cancel</span>
+                    </a>
+
+                    <button type="submit" value="save" class="btn btn-primary btn-icon-split float-md-right">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-check"></i>
+                            </span>
+                        <span class="text">Upload</span>
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+
+    </div>
+
+{% endblock %}
+
+
+{% block script %}
+
+    <!-- Page level plugins -->
+    <script src="{% static 'vendor/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{% static 'js/demo/datatables-demo.js' %}"></script>
+{% endblock %}
+

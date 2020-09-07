@@ -55,6 +55,31 @@
         </a>
     </div>
     <br>
+    <div>
+        <br>
+        <a href="{% url 'wfautomation:define_poi' site_detail_info.site_id %}"
+           class="btn btn-info btn-icon-split btn-sm float-md-right mr-1">
+            {#                            <span class="icon text-white-50">#}
+            {#                                <i class="fas fa-check"></i>#}
+            {#                            </span>#}
+            <span class="text">Provide Site POI</span>
+        </a>
+        <a href="{% url 'wfautomation:upload_site_survey' site_detail_info.site_id %}"
+           class="btn btn-info btn-icon-split btn-sm float-md-right mr-1">
+            {#                            <span class="icon text-white-50">#}
+            {#                                <i class="fas fa-check"></i>#}
+            {#                            </span>#}
+            <span class="text">Upload Site Survey Documents</span>
+        </a>
+        <a href="{% url 'wfautomation:generate_site_survey_report2' site_detail_info.site_id %}"
+           class="btn btn-info btn-icon-split btn-sm float-md-right mr-1">
+            {#                            <span class="icon text-white-50">#}
+            {#                                <i class="fas fa-check"></i>#}
+            {#                            </span>#}
+            <span class="text">Generate Site Survey Report</span>
+        </a>
+    </div>
+    <br>
 
     <div class="container-fluid">
 
@@ -103,27 +128,27 @@
                             <th class="info">State</th>
                             <td>{{ site_detail_info.site_state }}</td>
                         </tr>
-{#                        <tr>#}
-{#                            <th class="info">Cluster</th>#}
-{#                            <td>{{ site_detail_info.site_cluster }}</td>#}
-{#                        </tr>#}
-{#                        <tr>#}
-{#                            <th class="info">Pole Owner</th>#}
-{#                            <td>{{ site_detail_info.site_pole_owner }}</td>#}
-{#                        </tr>#}
-{#                        <tr>#}
-{#                            <th class="info">Pole ID</th>#}
-{#                            <td>{{ site_detail_info.site_pole_id }}</td>#}
-{#                        </tr>#}
-{##}
-{#                        <tr>#}
-{#                            <th class="info">RFNSA ID</th>#}
-{#                            <td>{{ site_detail_info.site_rfnsa_id|default:"-" }}</td>#}
-{#                        </tr>#}
-{#                        <tr>#}
-{#                            <th class="info">ACMA ID</th>#}
-{#                            <td>{{ site_detail_info.site_acma_id|default:"-" }}</td>#}
-{#                        </tr>#}
+                        {#                        <tr>#}
+                        {#                            <th class="info">Cluster</th>#}
+                        {#                            <td>{{ site_detail_info.site_cluster }}</td>#}
+                        {#                        </tr>#}
+                        {#                        <tr>#}
+                        {#                            <th class="info">Pole Owner</th>#}
+                        {#                            <td>{{ site_detail_info.site_pole_owner }}</td>#}
+                        {#                        </tr>#}
+                        {#                        <tr>#}
+                        {#                            <th class="info">Pole ID</th>#}
+                        {#                            <td>{{ site_detail_info.site_pole_id }}</td>#}
+                        {#                        </tr>#}
+                        {##}
+                        {#                        <tr>#}
+                        {#                            <th class="info">RFNSA ID</th>#}
+                        {#                            <td>{{ site_detail_info.site_rfnsa_id|default:"-" }}</td>#}
+                        {#                        </tr>#}
+                        {#                        <tr>#}
+                        {#                            <th class="info">ACMA ID</th>#}
+                        {#                            <td>{{ site_detail_info.site_acma_id|default:"-" }}</td>#}
+                        {#                        </tr>#}
 
 
                         </thead>
@@ -211,15 +236,15 @@
 
     <!-- Comments of the site -->
 
-        <div class="col-lg-12 mb-4">
+    <div class="col-lg-12 mb-4">
 
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">{{ comments.count }} Comments</h6>
-                </div>
-                <div class="card-body">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">{{ comments.count }} Comments</h6>
+            </div>
+            <div class="card-body">
 
-                    <div>
+                <div>
                     {% for comment in comments %}
                         <hr>
                         <p>
@@ -233,7 +258,7 @@
                         <pre style="font-family: inherit; font-size: 1em;">{{ comment.body }}</pre>
                     {% endfor %}
                 </div>
-                </div>
+            </div>
             <div class="col-9">
                 {% if user.is_authenticated %}
                     <div>
@@ -265,10 +290,10 @@
                 {% endif %}
 
             </div>
-            </div>
-
-
         </div>
+
+
+    </div>
 
 
 {% endblock %}
