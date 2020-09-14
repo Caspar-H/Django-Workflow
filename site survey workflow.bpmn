@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1cpgyvw" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.2.0">
+  <bpmn:process id="SITESURVEY" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_0mlvrip</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0mlvrip" sourceRef="StartEvent_1" targetRef="poi" />
+    <bpmn:userTask id="poi" name="POI" camunda:candidateGroups="tpgeme">
+      <bpmn:incoming>Flow_0mlvrip</bpmn:incoming>
+      <bpmn:outgoing>Flow_0s3spl3</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_0s3spl3" sourceRef="poi" targetRef="documents_upload" />
+    <bpmn:userTask id="documents_upload" name="Documents Upload" camunda:candidateGroups="tpgsaed">
+      <bpmn:incoming>Flow_0s3spl3</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ykul4o</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_1ykul4o" sourceRef="documents_upload" targetRef="generate_report" />
+    <bpmn:userTask id="generate_report" name="Generate Report" camunda:candidateGroups="tpgsaed">
+      <bpmn:incoming>Flow_1ykul4o</bpmn:incoming>
+      <bpmn:outgoing>Flow_0izmqlj</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_0izmqlj" sourceRef="generate_report" targetRef="complete" />
+    <bpmn:userTask id="complete" name="Complete" camunda:candidateGroups="tpgsaed">
+      <bpmn:incoming>Flow_0izmqlj</bpmn:incoming>
+      <bpmn:outgoing>Flow_1xpmhqq</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="Event_1y98bij">
+      <bpmn:incoming>Flow_1xpmhqq</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1xpmhqq" sourceRef="complete" targetRef="Event_1y98bij" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="SITESURVEY">
+      <bpmndi:BPMNEdge id="Flow_0mlvrip_di" bpmnElement="Flow_0mlvrip">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="310" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0s3spl3_di" bpmnElement="Flow_0s3spl3">
+        <di:waypoint x="410" y="117" />
+        <di:waypoint x="510" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ykul4o_di" bpmnElement="Flow_1ykul4o">
+        <di:waypoint x="610" y="117" />
+        <di:waypoint x="710" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0izmqlj_di" bpmnElement="Flow_0izmqlj">
+        <di:waypoint x="810" y="117" />
+        <di:waypoint x="910" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1xpmhqq_di" bpmnElement="Flow_1xpmhqq">
+        <di:waypoint x="1010" y="117" />
+        <di:waypoint x="1112" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0oxymsl_di" bpmnElement="poi">
+        <dc:Bounds x="310" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_00i7vbh_di" bpmnElement="documents_upload">
+        <dc:Bounds x="510" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0oym63x_di" bpmnElement="generate_report">
+        <dc:Bounds x="710" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_10eyjz9_di" bpmnElement="complete">
+        <dc:Bounds x="910" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1y98bij_di" bpmnElement="Event_1y98bij">
+        <dc:Bounds x="1112" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

@@ -29,4 +29,9 @@ urlpatterns = [
     path('my_task/', views.my_task, name='my_task'),
     path('my_group_task/', views.my_group_task, name='my_group_task'),
 
+    # individual tasks / POI, Documents Upload, and Generate Report
+    # path('task_poi/<str:site_id>', views.task_poi, name='task_poi'),
+    # path('task_documents_upload/<str:site_id>', views.task_documents_upload, name='task_documents_upload'),
+    # path('task_generate_report/<str:site_id>', views.task_generate_report, name='task_generate_report'),
+
 ]

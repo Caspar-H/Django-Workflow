@@ -77,8 +77,8 @@ def generate_site_survey_report(request):
 class POICreateView(CreateView):
     model = POIDescription
     form_class = POIForm
-    slug_field = 'site_id'
-    slug_url_kwarg = 'site_id'
+    # slug_field = 'site_id'
+    # slug_url_kwarg = 'site_id'
     template_name = 'wfautomation/poi_update.html'
 
     def form_valid(self, form, **kwargs):
@@ -104,21 +104,31 @@ class POICreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super(POICreateView, self).get_context_data(**kwargs)
         context['site_id'] = self.kwargs['site_id']
+        context['task_name'] = self.kwargs['task_name']
+        context['ins_id'] = self.kwargs['ins_id']
+
         return context
 
     def get_success_url(self, **kwargs):
         print(self.kwargs['site_id'])
-        return reverse('sitedb:site_detail_info', args=[self.kwargs['site_id']])
+        return reverse('sitedb:complete_task', args=[self.kwargs['task_name'],
+                                                     self.kwargs['site_id'],
+                                                     self.kwargs['ins_id']
+                                                     ])
+        # return redirect('sitedb:complete_task', site_id=self.kwargs['site_id'], task_name=self.kwargs['task_name'],
+        #                 ins_id=self.kwargs['ins_id'])
 
 
-def upload_site_survey(request, site_id):
+def upload_site_survey(request, task_name, site_id, ins_id):
     if request.method == 'POST':
         form = SiteSurveyDocumentsForm(request.POST, request.FILES)
         if form.is_valid():
             form.instance.site_id = site_id
             print(site_id)
             form.save()
-            return redirect('sitedb:site_detail_info', site_id=site_id)
+            # return reverse('sitedb:complete_task', args=[task_name, site_id, ins_id])
+            return redirect('sitedb:complete_task', site_id=site_id, task_name=task_name,
+                            ins_id=ins_id)
         else:
             return HttpResponse("Form is not valid")
     else:
@@ -129,8 +139,7 @@ def upload_site_survey(request, site_id):
         return render(request, 'wfautomation/upload_site_survey.html', locals())
 
 
-def generate_site_survey_report2(request, site_id):
-
+def generate_site_survey_report2(request, task_name, site_id, ins_id):
     file_path = os.path.join(MEDIA_ROOT, 'site_{0}/site_survey_report.xlsx'.format(site_id))
     print(MEDIA_ROOT)
     print(file_path)
@@ -223,4 +232,5 @@ def generate_site_survey_report2(request, site_id):
                            {'x_scale': 0.11, 'y_scale': 0.11})
 
     workbook.close()
-    return HttpResponse("Report Generated")
+    return redirect('sitedb:complete_task', site_id=site_id, task_name=task_name,
+                    ins_id=ins_id)

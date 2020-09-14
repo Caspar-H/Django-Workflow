@@ -66,6 +66,19 @@ def claim_task(request, task_name, site_id, ins_id):
     )
 
     messages.success(request, "Task {} was claimed successfully.".format(task_name))
+    print(task_name)
+    if task_name == "poi":
+        return HttpResponseRedirect(reverse('wfautomation:define_poi', kwargs={'task_name': task_name,
+                                                                               'site_id': site_id,
+                                                                               'ins_id': ins_id}))
+    elif task_name == "documents_upload":
+        return HttpResponseRedirect(reverse('wfautomation:upload_site_survey', kwargs={'site_id': site_id,
+                                                                               'task_name': task_name,
+                                                                               'ins_id': ins_id}))
+    elif task_name == "generate_report":
+        return HttpResponseRedirect(reverse('wfautomation:generate_site_survey_report2', kwargs={'site_id': site_id,
+                                                                               'task_name': task_name,
+                                                                               'ins_id': ins_id}))
 
     return HttpResponseRedirect(reverse('sitedb:milestone_task', kwargs={'task_name': task_name, 'site_id': site_id}))
 

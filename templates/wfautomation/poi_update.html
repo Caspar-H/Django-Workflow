@@ -39,6 +39,7 @@
                     <h3 class="m-0 font-weight-bold text-center text-primary">{{ site_id }}</h3>
                 </div>
 {#                <form action="{% url 'sitedb:edit_site_basic' form.site_id %}" method="post">#}
+{#                <form action="{% url 'sitedb:complete_task' task_name site_id ins_id %}" method="post">#}
                 <form action="" method="post">
                     {% csrf_token %}
                     <div class="form-row">

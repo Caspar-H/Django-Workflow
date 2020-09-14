@@ -55,30 +55,30 @@
         </a>
     </div>
     <br>
-    <div>
-        <br>
-        <a href="{% url 'wfautomation:define_poi' site_detail_info.site_id %}"
-           class="btn btn-info btn-icon-split btn-sm float-md-right mr-1">
+{#    <div>#}
+{#        <br>#}
+{#        <a href="{% url 'wfautomation:define_poi' site_detail_info.site_id %}"#}
+{#           class="btn btn-info btn-icon-split btn-sm float-md-right mr-1">#}
             {#                            <span class="icon text-white-50">#}
             {#                                <i class="fas fa-check"></i>#}
             {#                            </span>#}
-            <span class="text">Provide Site POI</span>
-        </a>
-        <a href="{% url 'wfautomation:upload_site_survey' site_detail_info.site_id %}"
-           class="btn btn-info btn-icon-split btn-sm float-md-right mr-1">
+{#            <span class="text">Provide Site POI</span>#}
+{#        </a>#}
+{#        <a href="{% url 'wfautomation:upload_site_survey' site_detail_info.site_id %}"#}
+{#           class="btn btn-info btn-icon-split btn-sm float-md-right mr-1">#}
             {#                            <span class="icon text-white-50">#}
             {#                                <i class="fas fa-check"></i>#}
             {#                            </span>#}
-            <span class="text">Upload Site Survey Documents</span>
-        </a>
-        <a href="{% url 'wfautomation:generate_site_survey_report2' site_detail_info.site_id %}"
-           class="btn btn-info btn-icon-split btn-sm float-md-right mr-1">
+{#            <span class="text">Upload Site Survey Documents</span>#}
+{#        </a>#}
+{#        <a href="{% url 'wfautomation:generate_site_survey_report2' site_detail_info.site_id %}"#}
+{#           class="btn btn-info btn-icon-split btn-sm float-md-right mr-1">#}
             {#                            <span class="icon text-white-50">#}
             {#                                <i class="fas fa-check"></i>#}
             {#                            </span>#}
-            <span class="text">Generate Site Survey Report</span>
-        </a>
-    </div>
+{#            <span class="text">Generate Site Survey Report</span>#}
+{#        </a>#}
+{#    </div>#}
     <br>
 
     <div class="container-fluid">
@@ -172,7 +172,7 @@
         <!-- timeline item 1 -->
         {% for i in loop_times %}
             <div class="row">
-                {% if task_name|index:i == "Site Completed" %}
+                {% if task_name|index:i == "Complete" %}
                     <div class="col-auto text-center flex-column d-none d-sm-flex">
                         <div class="row h-50">
                             <div class="col border-right">&nbsp;</div>
@@ -199,32 +199,32 @@
                         </div>
                     </div>
                 {% else %}
-                    <div class="col-auto text-center flex-column d-none d-sm-flex">
-                        <div class="row h-50">
-                            <div class="col border-right">&nbsp;</div>
-                            <div class="col">&nbsp;</div>
-                        </div>
-                        <h5 class="m-2">
-                            <span class="badge badge-pill bg-warning">&nbsp;</span>
-                        </h5>
-                        <div class="row h-50">
-                            <div class="col border-right">&nbsp;</div>
-                            <div class="col">&nbsp;</div>
-                        </div>
-                    </div>
-                    <div class="col py-2">
-                        <div class="card border-success shadow">
-                            <div class="card-body">
-                                <div class="float-right text-warning }}">
-                                    Ongoing - {{ candidate_group|index:i }}
-                                </div>
-                                <h4 class="card-title text-warning">
-                                    <a href="{% url 'sitedb:milestone_task' task_name=task_url|index:i site_id=site_detail_info.site_id %}"
-                                       style="color: #4e73df;">{{ task_name|index:i }}</a>
-                                </h4>
+                        <div class="col-auto text-center flex-column d-none d-sm-flex">
+                            <div class="row h-50">
+                                <div class="col border-right">&nbsp;</div>
+                                <div class="col">&nbsp;</div>
+                            </div>
+                            <h5 class="m-2">
+                                <span class="badge badge-pill bg-warning">&nbsp;</span>
+                            </h5>
+                            <div class="row h-50">
+                                <div class="col border-right">&nbsp;</div>
+                                <div class="col">&nbsp;</div>
                             </div>
                         </div>
-                    </div>
+                        <div class="col py-2">
+                            <div class="card border-success shadow">
+                                <div class="card-body">
+                                    <div class="float-right text-warning }}">
+                                        Ongoing - {{ candidate_group|index:i }}
+                                    </div>
+                                    <h4 class="card-title text-warning">
+                                        <a href="{% url 'sitedb:milestone_task' task_name=task_url|index:i site_id=site_detail_info.site_id %}"
+                                           style="color: #4e73df;">{{ task_name|index:i }}</a>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
                 {% endif %}
 
             </div>
