@@ -1,45 +1,19 @@
-1. FR Automation
-  - Source File
-    - PDF
-    - Excel
-    - Latest photos
+Huawei ADSS OMW HOP tools
 
-  - Output File
-    - FR Report
-
-  - To-do
-    - Extract info from PDF and fill in Excel file (done)
-
-
-2. EME Report/ Site Survey Report Automation
-  - Source File
-    - Photos
-
-  - Output File
-    - PDF
-    - Excel
-
-  - To-do
-    -
-
-3. Documents Management System + FR Resource Allocation
-  - Source File
-    - Documents collection from RFNSA/NRS/Email
-
-  - Output File
-    - Documents Platform
-
-  - To-do
-    - Rename files and upload
-    - Record file date information
-    - Categorize file types
+Structure:
+1. site info
+2. RAN info sd4-sd10
+3. Auto material BOM
+4. Auto service scope of work
+5. EME Form A/B
+6. File/documents attachment
+7. Data Collection from U2k and RFNSA
 
 
-4. Redline marking cross check
+Site - Program (2 level view)
 
-5. ACMA Check
+Discrepancy check - EBP
 
-6. RFNSA STADs update
+Small Cell site selection database
 
-
-To-do list:
+HoP Preparation - serial number reading - QA check - Review Dashboard
