@@ -31,12 +31,12 @@ def load_site_data(request):
         new_site.save()
 
         # Start instance in Camunda engine
-        business_key = row['site_id']
-        url_start_process = "http://localhost:8080/engine-rest/process-definition/key/SITESURVEY/start"
-        json_content = {
-            "businessKey": business_key
-        }
-        r_start_process = requests.post(url_start_process, json=json_content)
+        # business_key = row['site_id']
+        # url_start_process = "http://localhost:8080/engine-rest/process-definition/key/SITESURVEY/start"
+        # json_content = {
+        #     "businessKey": business_key
+        # }
+        # r_start_process = requests.post(url_start_process, json=json_content)
 
     return HttpResponse('Data Loaded')
 
