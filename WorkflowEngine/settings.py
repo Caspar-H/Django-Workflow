@@ -177,4 +177,5 @@ MINIO_HOST = 'localhost:9000'
 # Camunda host address
 CAMUNDA_HOST = 'http://localhost:8080/engine-rest'
 WORKFLOW_NAME = 'SITESURVEY'
+ACTIVATION_WORKFLOW_NAME = 'rollout_workflow_v1'
 

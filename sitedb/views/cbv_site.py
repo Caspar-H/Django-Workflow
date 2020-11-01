@@ -33,6 +33,39 @@ class SiteListView(ListView):
         return context
 
 
+class ActivationListView(ListView):
+    model = Site
+    context_object_name = 'site_data'
+    template_name = 'sitedb/activation_list.html'
+
+    # do a filter for the query data
+    def get_queryset(self):
+        return Site.objects.all().filter(site_activation__activation_plan=True)
+
+    # add more arguments to the returned context
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(ActivationListView, self).get_context_data(**kwargs)
+        # To call site_current_percentage in Templates , {{site_current_percentage}}
+        context['total_number'] = Site.objects.all().filter(site_activation__activation_plan=True).count()
+        return context
+
+class SwapListView(ListView):
+    model = Site
+    context_object_name = 'site_data'
+    template_name = 'sitedb/swap_list.html'
+
+    # do a filter for the query data
+    def get_queryset(self):
+        return Site.objects.all().filter(site_swap__swap_plan=True)
+
+    # add more arguments to the returned context
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(SwapListView, self).get_context_data(**kwargs)
+        # To call site_current_percentage in Templates , {{site_current_percentage}}
+        context['total_number'] = Site.objects.all().filter(site_swap__swap_plan=True).count()
+        return context
+
+
 class SiteDetailView(DetailView):
     model = Site
     slug_field = 'site_id'

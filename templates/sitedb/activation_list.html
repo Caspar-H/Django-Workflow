@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %} Site Table {% endblock %}
+{% block title %} Project Activation - Site Table {% endblock %}
 
 {% block css %}
 
@@ -19,7 +19,7 @@
 {% block breadcrumb %}
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page">Site Table</li>
+            <li class="breadcrumb-item active" aria-current="page">Activation Site Table</li>
         </ol>
     </nav>
 {% endblock %}
@@ -51,6 +51,8 @@
                             <th>State</th>
                             <th>Pole Owner</th>
                             <th>Pole ID</th>
+                            <th>Activation Schedule</th>
+                            <th>Activation Status</th>
                             <th>RFNSA ID</th>
                             <th>ACMA ID</th>
                             <th>VHA ID</th>
@@ -66,6 +68,8 @@
                             <th>State</th>
                             <th>Pole Owner</th>
                             <th>Pole ID</th>
+                            <th>Activation Schedule</th>
+                            <th>Activation Status</th>
                             <th>RFNSA ID</th>
                             <th>ACMA ID</th>
                             <th>VHA ID</th>
@@ -83,6 +87,8 @@
                                 <td>{{ site.site_state }}</td>
                                 <td>{{ site.site_pole_owner }}</td>
                                 <td>{{ site.site_pole_id }}</td>
+                                <td>{{ site.site_activation.activation_schedule}}</td>
+                                <td>{{ site.site_activation.activation_status}}</td>
                                 <td>{{ site.site_rfnsa_id|default:"-" }}</td>
                                 <td>{{ site.site_acma_id|default:"-" }}</td>
                                 <td>{{ site.site_vha_id|default:"-" }}</td>

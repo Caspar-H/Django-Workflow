@@ -6,6 +6,7 @@ app_name = 'sitedb'
 urlpatterns = [
     path('load_site_data/', views.load_site_data, name='load_site_data'),
     path('init_site_status/', views.init_site_status, name='init_site_status'),
+    path('delete_site_data/', views.delete_site_data, name='delete_site_data'),
 
     path('home/', views.home, name='home'),
 
@@ -28,6 +29,13 @@ urlpatterns = [
 
     path('my_task/', views.my_task, name='my_task'),
     path('my_group_task/', views.my_group_task, name='my_group_task'),
+
+    # project based site table
+    path('site_list_activation/', views.ActivationListView.as_view(), name='site_list_activation'),
+    path('load_site_data_activation/', views.load_site_data_activation, name='load_site_data_activation'),
+
+    path('site_list_swap/', views.SwapListView.as_view(), name='site_list_swap'),
+    path('load_site_data_swap/', views.load_site_data_swap, name='load_site_data_swap'),
 
     # individual tasks / POI, Documents Upload, and Generate Report
     # path('task_poi/<str:site_id>', views.task_poi, name='task_poi'),

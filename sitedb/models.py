@@ -31,14 +31,14 @@ class Site(models.Model):
 
 
 class SiteActivation(models.Model):
-    site = models.ForeignKey(Site, on_delete=models.CASCADE, related_name='site_activation')
+    site = models.OneToOneField(Site, on_delete=models.CASCADE, related_name='site_activation')
     activation_plan = models.BooleanField(default=False, verbose_name='Activation Plan')
     activation_schedule = models.CharField(max_length=32, verbose_name='Activation Schedule')
     activation_status = models.CharField(max_length=32, verbose_name='Activation Status')
 
 
 class SiteSwap(models.Model):
-    site = models.ForeignKey(Site, on_delete=models.CASCADE, related_name='site_swap')
+    site = models.OneToOneField(Site, on_delete=models.CASCADE, related_name='site_swap')
     swap_plan = models.BooleanField(default=False, verbose_name='Swap Plan')
     swap_schedule = models.CharField(max_length=32, verbose_name='Swap Schedule')
     swap_status = models.CharField(max_length=32, verbose_name='Swap Status')
