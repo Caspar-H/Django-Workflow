@@ -7,7 +7,7 @@ from django.urls import reverse
 from django.utils import timezone
 from notifications.signals import notify
 
-from WorkflowEngine.settings import CAMUNDA_HOST, WORKFLOW_NAME
+from WorkflowEngine.settings import CAMUNDA_HOST, ACTIVATION_WORKFLOW_NAME
 from sitedb.models import SiteLogInfo, Site
 
 import pandas as pd
@@ -21,7 +21,7 @@ def milestone_task(request, task_name, site_id):
     query_param = {
         "processInstanceBusinessKey": site_id,
         "taskDefinitionKey": task_name,
-        "processDefinitionKey": WORKFLOW_NAME
+        "processDefinitionKey": ACTIVATION_WORKFLOW_NAME
     }
 
     r_task = requests.get(url_task, params=query_param).json()[0]
@@ -90,7 +90,7 @@ def assign_task(request, task_name, site_id, ins_id):
         query_param = {
             "processInstanceBusinessKey": site_id,
             "taskDefinitionKey": task_name,
-            "processDefinitionKey": WORKFLOW_NAME
+            "processDefinitionKey": ACTIVATION_WORKFLOW_NAME
         }
         r_task = requests.get(url_task, params=query_param).json()[0]
 
@@ -116,7 +116,7 @@ def assign_task(request, task_name, site_id, ins_id):
         query_param = {
             "processInstanceBusinessKey": site_id,
             "taskDefinitionKey": task_name,
-            "processDefinitionKey": WORKFLOW_NAME
+            "processDefinitionKey": ACTIVATION_WORKFLOW_NAME
         }
         r_task = requests.get(url_task, params=query_param).json()[0]
 
@@ -221,7 +221,7 @@ def milestone_overview(request):
     for key, value in team_dict.items():
         url_task = "{}/task".format(CAMUNDA_HOST)
         query_param = {
-            "processDefinitionKey": WORKFLOW_NAME,
+            "processDefinitionKey": ACTIVATION_WORKFLOW_NAME,
             "candidateGroup": key,
             "includeAssignedTasks": 'true'
         }
@@ -272,7 +272,7 @@ def milestone_detail(request, milestone_name):
     # business key and instance key mapping table
     url_mapping = "{}/process-instance/".format(CAMUNDA_HOST)
     query_param_mapping = {
-        "processDefinitionKey": WORKFLOW_NAME
+        "processDefinitionKey": ACTIVATION_WORKFLOW_NAME
     }
     r_mapping = requests.get(url_mapping, params=query_param_mapping).json()
     business_key_mapping = {}
@@ -282,7 +282,7 @@ def milestone_detail(request, milestone_name):
     # Get site list under a milestone
     url_milestone_task = "{}/task".format(CAMUNDA_HOST)
     query_param = {
-        "processDefinitionKey": WORKFLOW_NAME,
+        "processDefinitionKey": ACTIVATION_WORKFLOW_NAME,
         "taskDefinitionKey": milestone_name
     }
     r_milestone_task = requests.get(url_milestone_task, params=query_param).json()

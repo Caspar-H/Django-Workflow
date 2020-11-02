@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, UpdateView
 
-from WorkflowEngine.settings import CAMUNDA_HOST, WORKFLOW_NAME
+from WorkflowEngine.settings import CAMUNDA_HOST, WORKFLOW_NAME, ACTIVATION_WORKFLOW_NAME
 from comment.models import Comment
 from sitedb.forms import SiteForm
 from sitedb.models import Site, SiteLogInfo
@@ -81,7 +81,7 @@ class SiteDetailView(DetailView):
         url_task_name = "{}/task".format(CAMUNDA_HOST)
         query_param = {
             "processInstanceBusinessKey": business_key,
-            "processDefinitionKey": WORKFLOW_NAME
+            "processDefinitionKey": ACTIVATION_WORKFLOW_NAME
         }
         r_task_name = requests.get(url_task_name, params=query_param).json()
         # Get Candidate group
@@ -89,26 +89,26 @@ class SiteDetailView(DetailView):
         context['loop_times'] = range(task_num)
         context['task_name'] = []
         context['task_url'] = []
-        context['candidate_group'] = []
+        # context['candidate_group'] = []
         # candidate_group_mapping = {
         #     'emeteam': 'EME Team',
         #     'rfteam': 'RF Team'
         # }
-        candidate_group_mapping = {
-            'vharf': 'VHA RF Team',
-            'tpgrf': 'TPG RF Team',
-            'tpgeme': 'TPG EME Team',
-            'tpgpm': 'TPG PM Team',
-            'tpgsaed': 'TPG SAED Team'
-        }
+        # candidate_group_mapping = {
+        #     'vharf': 'VHA RF Team',
+        #     'tpgrf': 'TPG RF Team',
+        #     'tpgeme': 'TPG EME Team',
+        #     'tpgpm': 'TPG PM Team',
+        #     'tpgsaed': 'TPG SAED Team'
+        # }
         for item in range(task_num):
             context['task_name'].append(r_task_name[item]['name'])
             context['task_url'].append(r_task_name[item]['taskDefinitionKey'])
-
-            # Candidate Group
-            url_candidate_group = "{}/task/{}/identity-links".format(CAMUNDA_HOST, r_task_name[item]['id'])
-            r_candidate_group = requests.get(url_candidate_group).json()[0]['groupId']
-            context['candidate_group'].append(candidate_group_mapping[r_candidate_group])
+        #
+        #     # Candidate Group
+        #     url_candidate_group = "{}/task/{}/identity-links".format(CAMUNDA_HOST, r_task_name[item]['id'])
+        #     r_candidate_group = requests.get(url_candidate_group).json()[0]['groupId']
+        #     context['candidate_group'].append(candidate_group_mapping[r_candidate_group])
 
         # Get comments for the site
         comments = Comment.objects.filter(site__site_id=self.kwargs['site_id'])

@@ -37,6 +37,12 @@ urlpatterns = [
     path('site_list_swap/', views.SwapListView.as_view(), name='site_list_swap'),
     path('load_site_data_swap/', views.load_site_data_swap, name='load_site_data_swap'),
 
+    # batch operation
+    path('batch_claim_task/', views.batch_claim_task, name='batch_claim_task'),
+    path('batch_complete_task/', views.batch_complete_task, name='batch_complete_task'),
+    path('batch_milestone_update/', views.batch_milestone_update, name='batch_milestone_update'),
+
+
     # individual tasks / POI, Documents Upload, and Generate Report
     # path('task_poi/<str:site_id>', views.task_poi, name='task_poi'),
     # path('task_documents_upload/<str:site_id>', views.task_documents_upload, name='task_documents_upload'),

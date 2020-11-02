@@ -34,7 +34,7 @@
       <bpmn:outgoing>Flow_1556hnd</bpmn:outgoing>
     </bpmn:parallelGateway>
     <bpmn:sequenceFlow id="Flow_0bq6v8i" sourceRef="Gateway_1nbbpy5" targetRef="neighbouring_sites" />
-    <bpmn:sequenceFlow id="Flow_0mz99y8" sourceRef="Gateway_1nbbpy5" targetRef="cmd_dump" />
+    <bpmn:sequenceFlow id="Flow_0mz99y8" sourceRef="Gateway_1nbbpy5" targetRef="cme_dump" />
     <bpmn:sequenceFlow id="Flow_1jrvl7n" sourceRef="Gateway_1nbbpy5" targetRef="testing_scenario" />
     <bpmn:sequenceFlow id="Flow_0zclk0g" sourceRef="Gateway_1nbbpy5" targetRef="testing_route" />
     <bpmn:sequenceFlow id="Flow_15d1zsp" sourceRef="neighbouring_sites" targetRef="Gateway_1a2c78m" />
@@ -66,7 +66,7 @@
       <bpmn:outgoing>Flow_10rvnym</bpmn:outgoing>
     </bpmn:parallelGateway>
     <bpmn:sequenceFlow id="Flow_10rvnym" sourceRef="Gateway_1a2c78m" targetRef="site_activation_ready" />
-    <bpmn:sequenceFlow id="Flow_194iuw7" sourceRef="cmd_dump" targetRef="Gateway_1a2c78m" />
+    <bpmn:sequenceFlow id="Flow_194iuw7" sourceRef="cme_dump" targetRef="Gateway_1a2c78m" />
     <bpmn:sequenceFlow id="Flow_0gh4wns" sourceRef="testing_scenario" targetRef="Gateway_1a2c78m" />
     <bpmn:sequenceFlow id="Flow_0g98yff" sourceRef="testing_route" targetRef="Gateway_1a2c78m" />
     <bpmn:sequenceFlow id="Flow_08w2ukd" sourceRef="site_activation_ready" targetRef="Gateway_0ec1p17" />
@@ -177,7 +177,7 @@
       <bpmn:incoming>Flow_0bq6v8i</bpmn:incoming>
       <bpmn:outgoing>Flow_15d1zsp</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:userTask id="cmd_dump" name="CME Dump">
+    <bpmn:userTask id="cme_dump" name="CME Dump">
       <bpmn:incoming>Flow_0mz99y8</bpmn:incoming>
       <bpmn:outgoing>Flow_194iuw7</bpmn:outgoing>
     </bpmn:userTask>
@@ -720,7 +720,7 @@
       <bpmndi:BPMNShape id="Activity_11urzv5_di" bpmnElement="neighbouring_sites">
         <dc:Bounds x="510" y="77" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_07c39ow_di" bpmnElement="cmd_dump">
+      <bpmndi:BPMNShape id="Activity_07c39ow_di" bpmnElement="cme_dump">
         <dc:Bounds x="510" y="190" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1s3bm20_di" bpmnElement="testing_scenario">

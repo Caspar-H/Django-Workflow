@@ -172,7 +172,7 @@
         <!-- timeline item 1 -->
         {% for i in loop_times %}
             <div class="row">
-                {% if task_name|index:i == "Complete" %}
+                {% if task_name|index:i == "activation_completed" %}
                     <div class="col-auto text-center flex-column d-none d-sm-flex">
                         <div class="row h-50">
                             <div class="col border-right">&nbsp;</div>
@@ -216,7 +216,7 @@
                             <div class="card border-success shadow">
                                 <div class="card-body">
                                     <div class="float-right text-warning }}">
-                                        Ongoing - {{ candidate_group|index:i }}
+                                        Ongoing
                                     </div>
                                     <h4 class="card-title text-warning">
                                         <a href="{% url 'sitedb:milestone_task' task_name=task_url|index:i site_id=site_detail_info.site_id %}"
