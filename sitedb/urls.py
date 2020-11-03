@@ -42,6 +42,9 @@ urlpatterns = [
     path('batch_complete_task/', views.batch_complete_task, name='batch_complete_task'),
     path('batch_milestone_update/', views.batch_milestone_update, name='batch_milestone_update'),
 
+    # milestone table overview
+    path('milestone_summary_activation/', views.milestone_summary_activation, name='milestone_summary_activation'),
+
 
     # individual tasks / POI, Documents Upload, and Generate Report
     # path('task_poi/<str:site_id>', views.task_poi, name='task_poi'),

@@ -49,6 +49,7 @@ class ActivationListView(ListView):
         context['total_number'] = Site.objects.all().filter(site_activation__activation_plan=True).count()
         return context
 
+
 class SwapListView(ListView):
     model = Site
     context_object_name = 'site_data'

@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Project Activation - Site Table {% endblock %}
+
+{% block css %}
+
+
+    <!-- Custom styles for this page -->
+    <link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+
+    <!-- Bootstrap Datatable styles for this page -->
+    <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet"
+          type="text/css">
+
+
+{% endblock %}
+
+{% block breadcrumb %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">Activation Site Table</li>
+        </ol>
+    </nav>
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        {#    <h1 class="h3 mb-2 text-gray-800">Small Cell Site Table</h1>#}
+
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Site Table: {{ total_number }} sites in total</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    {#                    <table class="table table-bordered display" id="dataTable" width="100%" cellspacing="0">#}
+                    <table id="example" class="display nowrap" style="width:100%">
+                        <thead>
+                        <tr>
+                            {% for table_header in table_header_list %}
+                                <th>{{ table_header }}</th>
+                            {% endfor %}
+
+{#                            <th>Site ID</th>#}
+{#                            <th>Site Name</th>#}
+{#                            <th>Latitude</th>#}
+{#                            <th>Longitude</th>#}
+{#                            <th>State</th>#}
+{#                            <th>Pole Owner</th>#}
+{#                            <th>Pole ID</th>#}
+{#                            <th>Activation Schedule</th>#}
+{#                            <th>Activation Status</th>#}
+{#                            <th>RFNSA ID</th>#}
+{#                            <th>ACMA ID</th>#}
+{#                            <th>VHA ID</th>#}
+{#                            <th>VHA Name</th>#}
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            {% for table_header in table_header_list %}
+                                <th>{{ table_header }}</th>
+                            {% endfor %}
+{#                            <th>Site ID</th>#}
+{#                            <th>Site Name</th>#}
+{#                            <th>Latitude</th>#}
+{#                            <th>Longitude</th>#}
+{#                            <th>State</th>#}
+{#                            <th>Pole Owner</th>#}
+{#                            <th>Pole ID</th>#}
+{#                            <th>Activation Schedule</th>#}
+{#                            <th>Activation Status</th>#}
+{#                            <th>RFNSA ID</th>#}
+{#                            <th>ACMA ID</th>#}
+{#                            <th>VHA ID</th>#}
+{#                            <th>VHA Name</th>#}
+                        </tr>
+                        </tfoot>
+                        <tbody>
+
+                        {% for site_milestone_info in site_milestone_info_list %}
+                            <tr>
+{#                                {% for table_header in table_header_list %}#}
+{#                                <td>{{ site_milestone_info.table_header }}</td>#}
+{#                                {% endfor %}#}
+                                <td>{{ site_milestone_info.neigbouring_sites }}</td>
+                                <td>{{ site_milestone_info.cme_dump }}</td>
+                            </tr>
+
+                        {% endfor %}
+
+{#                        {% for site in site_data %}#}
+{#                            <tr>#}
+{#                                <td><a href="{% url 'sitedb:site_detail_info' site.site_id %}">{{ site.site_id }}</a>#}
+{#                                </td>#}
+{#                                <td>{{ site.site_name }}</td>#}
+{#                                <td>{{ site.site_lat }}</td>#}
+{#                                <td>{{ site.site_long }}</td>#}
+{#                                <td>{{ site.site_state }}</td>#}
+{#                                <td>{{ site.site_pole_owner }}</td>#}
+{#                                <td>{{ site.site_pole_id }}</td>#}
+{#                                <td>{{ site.site_activation.activation_schedule }}</td>#}
+{#                                <td>{{ site.site_activation.activation_status }}</td>#}
+{#                                <td>{{ site.site_rfnsa_id|default:"-" }}</td>#}
+{#                                <td>{{ site.site_acma_id|default:"-" }}</td>#}
+{#                                <td>{{ site.site_vha_id|default:"-" }}</td>#}
+{#                                <td>{{ site.site_vha_name|default:"-" }}</td>#}
+{##}
+{#                            </tr>#}
+{#                        {% endfor %}#}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+{% endblock %}
+
+
+{% block script %}
+
+    <!-- Page level plugins -->
+    {#    <script src="{% static 'vendor/datatables/jquery.dataTables.min.js' %}"></script>#}
+    {#    <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>#}
+
+    <!-- Page level custom scripts -->
+    {#    <script src="{% static 'js/demo/datatables-demo.js' %}"></script>#}
+
+    <!-- Bootstrap Datatable styles for this page -->
+    <script src="{% static 'bootstrapdatatables/customizedDatatables.js' %}"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
+{% endblock %}
