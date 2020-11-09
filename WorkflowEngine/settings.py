@@ -179,3 +179,13 @@ CAMUNDA_HOST = 'http://localhost:8080/engine-rest'
 WORKFLOW_NAME = 'SITESURVEY'
 ACTIVATION_WORKFLOW_NAME = 'rollout_workflow_v1'
 
+# Activation Program sub milestone list
+ACTIVATION_LIST_READY = ['neighbouring_sites', 'cme_dump', 'testing_scenario', 'testing_route', 'acma_check',
+                         'emeg_status', 'l1800_simulations', 'overlap_analysis',
+                         'cell_list_update_based_on_simulation', 'site_power_up', 'shut_down_close_macrol700',
+                         'activate_small_cell', 'pre_testing', 'collect_tx_design_info', 'allocate_id',
+                         'pci_conflict', 'rf_script', 'check_rf_script', 'ran_script', 'dark_fibre_check',
+                         'tx_cutover', 'apply_cr', 'rfnsa_update', 'cell_group_define', ]
+ACTIVATION_ACTIVATION_READY = ['site_activation', 'service_verification', 'parameter_audit', 'day1_kpi_monitoring', ]
+ACTIVATION_POST_ACTIVATION = ['ric_checklist', 'isn_report_and_upload', 'apply_cr_for_phase2_parameters',
+                              'phase2_parameters_kpi_monitoring', 'rf_script_for_phase2_parameters', 'dsa7_report', ]

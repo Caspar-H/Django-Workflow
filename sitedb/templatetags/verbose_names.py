@@ -3,6 +3,16 @@ from django import template
 register = template.Library()
 
 
+@register.filter
+def get_obj_attr(obj, attr):
+    return getattr(obj, attr)
+
+
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)
+
+
 @register.simple_tag
 def get_verbose_field_name(instance, field_name):
     """
@@ -25,7 +35,7 @@ def verbose_name_plural(obj):
 def subtract(a, b):
     if (not a) or (not b):
         return 0
-    return (a-b).days
+    return (a - b).days
 
 
 @register.simple_tag

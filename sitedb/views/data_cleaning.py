@@ -5,7 +5,7 @@ import requests
 from django.http import HttpResponse
 
 from WorkflowEngine.settings import BASE_DIR, ACTIVATION_WORKFLOW_NAME
-from sitedb.models import Site, SiteActivation, SiteSwap
+from sitedb.models import Site, SiteActivation, SiteSwap, SiteLogInfo
 
 
 def load_site_data(request):
@@ -32,6 +32,14 @@ def load_site_data(request):
         new_site.site_acma_id = row['ACMA ID'] if not pd.isnull(row['ACMA ID']) else None
 
         new_site.save()
+
+        new_log = SiteLogInfo()
+        new_log.log_user = request.user.get_username()
+        new_log.log_site_id = row['Site ID']
+
+        new_log.log_operation_type = 'data_newsite_initialization'
+
+        new_log.save()
 
         # Start instance in Camunda engine
         # business_key = row['site_id']
@@ -135,6 +143,16 @@ def load_site_data_activation(request):
         }
         r_start_process = requests.post(url_start_process, json=json_content)
 
+        new_log = SiteLogInfo()
+        new_log.log_user = request.user.get_username()
+        new_log.log_site_id = row['Site ID']
+
+        new_log.log_operation_type = 'workflow_newsite_initialization'
+
+        new_log.save()
+
+
+
     return HttpResponse('Data Loaded & Site Status Initialized')
 
 
@@ -163,6 +181,12 @@ def load_site_data_swap(request):
         #     "businessKey": business_key
         # }
         # r_start_process = requests.post(url_start_process, json=json_content)
+
+        new_log = SiteLogInfo()
+        new_log.log_user = request.user.get_username()
+        new_log.log_site_id = row['Site ID']
+
+        new_log.log_operation_type = 'workflow_newsite_initialization'
 
     return HttpResponse('Data Loaded')
 

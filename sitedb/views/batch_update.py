@@ -5,8 +5,9 @@ import pandas as pd
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from WorkflowEngine.settings import CAMUNDA_HOST, BASE_DIR, ACTIVATION_WORKFLOW_NAME
-from sitedb.models import Site, SiteActivation
+from WorkflowEngine.settings import CAMUNDA_HOST, BASE_DIR, ACTIVATION_WORKFLOW_NAME, ACTIVATION_LIST_READY, \
+    ACTIVATION_ACTIVATION_READY, ACTIVATION_POST_ACTIVATION
+from sitedb.models import Site, SiteActivation, SiteLogInfo
 
 
 def batch_claim_task(request):
@@ -34,6 +35,24 @@ def batch_claim_task(request):
             "userId": request.user.get_username()
         }
         r_claim = requests.post(url_claim, json=json_content)
+
+        new_log = SiteLogInfo()
+        new_log.log_user = request.user.get_username()
+        new_log.log_site_id = site_id
+
+        if task_name in ACTIVATION_LIST_READY:
+            new_log.log_major_milestone = 'site_list_ready'
+        elif task_name in ACTIVATION_ACTIVATION_READY:
+            new_log.log_major_milestone = 'site_activation_ready'
+        elif task_name in ACTIVATION_POST_ACTIVATION:
+            new_log.log_major_milestone = 'site_post_activation'
+
+        new_log.log_sub_milestone = task_name
+        new_log.log_operation_type = 'batch_claim'
+
+        new_log.log_info = 'Task {} batch claim'.format(task_name)
+        new_log.save()
+
     return HttpResponse("sites have been claimed")
 
 
@@ -62,6 +81,24 @@ def batch_complete_task(request):
             "userId": request.user.get_username()
         }
         r_complete = requests.post(url_complete, json=json_content)
+
+        new_log = SiteLogInfo()
+        new_log.log_user = request.user.get_username()
+        new_log.log_site_id = site_id
+
+        if task_name in ACTIVATION_LIST_READY:
+            new_log.log_major_milestone = 'site_list_ready'
+        elif task_name in ACTIVATION_ACTIVATION_READY:
+            new_log.log_major_milestone = 'site_activation_ready'
+        elif task_name in ACTIVATION_POST_ACTIVATION:
+            new_log.log_major_milestone = 'site_post_activation'
+
+        new_log.log_sub_milestone = task_name
+        new_log.log_operation_type = 'batch_complete'
+
+        new_log.log_info = 'Task {} batch complete'.format(task_name)
+        new_log.save()
+
     return HttpResponse("sites have been completed")
 
 
@@ -75,20 +112,13 @@ def batch_milestone_update(request):
         site_status = row['Site Status']
         milestone_list = []
         if site_status == 'site_list_ready':
-            milestone_list = ['neighbouring_sites', 'cme_dump', 'testing_scenario', 'testing_route', 'acma_check',
-                              'emeg_status', 'l1800_simulations', 'overlap_analysis',
-                              'cell_list_update_based_on_simulation', 'site_power_up', 'shut_down_close_macrol700',
-                              'activate_small_cell', 'pre_testing', 'collect_tx_design_info', 'allocate_id',
-                              'pci_conflict', 'rf_script', 'check_rf_script', 'ran_script', 'dark_fibre_check',
-                              'tx_cutover', 'apply_cr', 'rfnsa_update', 'cell_group_define', ]
+            milestone_list = ACTIVATION_LIST_READY
         elif site_status == 'site_activation_ready':
-            milestone_list = ['site_activation', 'service_verification', 'parameter_audit', 'day1_kpi_monitoring', ]
+            milestone_list = ACTIVATION_ACTIVATION_READY
         elif site_status == 'post_activation':
-            milestone_list = ['ric_checklist', 'isn_report_and_upload', 'apply_cr_for_phase2_parameters',
-                              'phase2_parameters_kpi_monitoring', 'rf_script_for_phase2_parameters', 'dsa7_report', ]
+            milestone_list = ACTIVATION_POST_ACTIVATION
         elif site_status == 'activation_completed':
-            milestone_list = ['ric_checklist', 'isn_report_and_upload', 'apply_cr_for_phase2_parameters',
-                              'phase2_parameters_kpi_monitoring', 'rf_script_for_phase2_parameters', 'dsa7_report', ]
+            milestone_list = ACTIVATION_POST_ACTIVATION
 
         # site status
         temp_site = Site.objects.get(site_id=site_id)
@@ -160,20 +190,13 @@ def batch_milestone_update(request):
                 }
             r_modify_milestone = requests.post(url_modify_milestone, json=status_json_content)
 
-        # cancel the current milestone(site_list_ready)
-        # status_json_content = {
-        #     "skipCustomListeners": True,
-        #     "skipIoMappings": True,
-        #     "instructions": [
-        #         {
-        #             "type": 'cancel',
-        #             "activityId": 'site_list_ready'
-        #         }
-        #     ],
-        #     "annotation": "Status Initialization."
-        # }
-        # r_modify_milestone = requests.post(url_modify_milestone, json=status_json_content)
+        new_log = SiteLogInfo()
+        new_log.log_user = request.user.get_username()
+        new_log.log_site_id = site_id
 
+        new_log.log_operation_type = 'workflow_status_mapping'
+
+        new_log.save()
     return HttpResponse('Site status initialized')
 
 
@@ -185,16 +208,10 @@ def milestone_summary_activation(request):
     temp_site_list = list(Site.objects.filter(**workflow_filter))
 
     # list for milestones
-    milestone_list_ready = ['neighbouring_sites', 'cme_dump', 'testing_scenario', 'testing_route', 'acma_check',
-                            'emeg_status', 'l1800_simulations', 'overlap_analysis',
-                            'cell_list_update_based_on_simulation', 'site_power_up', 'shut_down_close_macrol700',
-                            'activate_small_cell', 'pre_testing', 'collect_tx_design_info', 'allocate_id',
-                            'pci_conflict', 'rf_script', 'check_rf_script', 'ran_script', 'dark_fibre_check',
-                            'tx_cutover', 'apply_cr', 'rfnsa_update', 'cell_group_define', ]
-    milestone_activation_ready = ['site_activation', 'service_verification', 'parameter_audit', 'day1_kpi_monitoring', ]
+    milestone_list_ready = ACTIVATION_LIST_READY
+    milestone_activation_ready = ACTIVATION_ACTIVATION_READY
 
-    milestone_post_activation = ['ric_checklist', 'isn_report_and_upload', 'apply_cr_for_phase2_parameters',
-                                 'phase2_parameters_kpi_monitoring', 'rf_script_for_phase2_parameters', 'dsa7_report', ]
+    milestone_post_activation = ACTIVATION_POST_ACTIVATION
 
     # query status of milestone for each of sites
     site_milestone_info_list = []
@@ -203,7 +220,7 @@ def milestone_summary_activation(request):
         temp_site_milestone_info = {'Site ID': temp_site.site_id, 'Site Status': site_status}
 
         # site in "not_started" stage
-        if site_status == 'not_started':
+        if site_status == 'Not Started':
             for task in milestone_list_ready + milestone_activation_ready + milestone_post_activation:
                 temp_site_milestone_info[task] = 'N'
 
@@ -224,9 +241,9 @@ def milestone_summary_activation(request):
             temp_task_list = [t['taskDefinitionKey'] for t in r_task_name]
             for task in milestone_list_ready:
                 if task not in temp_task_list:
-                    temp_site_milestone_info[task] = 'N'
-                else:
                     temp_site_milestone_info[task] = 'Y'
+                else:
+                    temp_site_milestone_info[task] = 'N'
 
         elif site_status == 'site_activation_ready':
             for task in milestone_post_activation:
@@ -246,12 +263,12 @@ def milestone_summary_activation(request):
             temp_task_list = [t['taskDefinitionKey'] for t in r_task_name]
             for task in milestone_activation_ready:
                 if task not in temp_task_list:
-                    temp_site_milestone_info[task] = 'N'
-                else:
                     temp_site_milestone_info[task] = 'Y'
+                else:
+                    temp_site_milestone_info[task] = 'N'
 
-        # site in "milestone_post_activation" stage
-        elif site_status == 'milestone_post_activation':
+        # site in "post_activation" stage
+        elif site_status == 'post_activation':
             for task in milestone_list_ready + milestone_activation_ready:
                 temp_site_milestone_info[task] = 'Y'
 
@@ -267,17 +284,17 @@ def milestone_summary_activation(request):
             temp_task_list = [t['taskDefinitionKey'] for t in r_task_name]
             for task in milestone_post_activation:
                 if task not in temp_task_list:
-                    temp_site_milestone_info[task] = 'N'
-                else:
                     temp_site_milestone_info[task] = 'Y'
+                else:
+                    temp_site_milestone_info[task] = 'N'
 
         site_milestone_info_list.append(temp_site_milestone_info)
 
-    table_header_list = ['Site_ID',
+    table_header_list = ['Site ID',
                          'Site Status'] + milestone_list_ready + milestone_activation_ready + milestone_post_activation
     context = {
         'site_milestone_info_list': site_milestone_info_list,
-        'table_header_list': table_header_list
+        'table_header_list': table_header_list,
     }
 
     return render(request, 'sitedb/milestone_summary_activation_list.html', context=context)

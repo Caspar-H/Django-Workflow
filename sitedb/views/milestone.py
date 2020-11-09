@@ -7,7 +7,8 @@ from django.urls import reverse
 from django.utils import timezone
 from notifications.signals import notify
 
-from WorkflowEngine.settings import CAMUNDA_HOST, ACTIVATION_WORKFLOW_NAME
+from WorkflowEngine.settings import CAMUNDA_HOST, ACTIVATION_WORKFLOW_NAME, ACTIVATION_LIST_READY, \
+    ACTIVATION_ACTIVATION_READY, ACTIVATION_POST_ACTIVATION
 from sitedb.models import SiteLogInfo, Site
 
 import pandas as pd
@@ -54,6 +55,16 @@ def claim_task(request, task_name, site_id, ins_id):
     new_log = SiteLogInfo()
     new_log.log_user = request.user.get_username()
     new_log.log_site_id = site_id
+    if task_name in ACTIVATION_LIST_READY:
+        new_log.log_major_milestone = 'site_list_ready'
+    elif task_name in ACTIVATION_ACTIVATION_READY:
+        new_log.log_major_milestone = 'site_activation_ready'
+    elif task_name in ACTIVATION_POST_ACTIVATION:
+        new_log.log_major_milestone = 'site_post_activation'
+
+    new_log.log_sub_milestone = task_name
+    new_log.log_operation_type = 'single_claim'
+
     new_log.log_info = 'Task {} claimed'.format(task_name)
     new_log.save()
 
@@ -67,18 +78,18 @@ def claim_task(request, task_name, site_id, ins_id):
 
     messages.success(request, "Task {} was claimed successfully.".format(task_name))
     print(task_name)
-    if task_name == "poi":
-        return HttpResponseRedirect(reverse('wfautomation:define_poi', kwargs={'task_name': task_name,
-                                                                               'site_id': site_id,
-                                                                               'ins_id': ins_id}))
-    elif task_name == "documents_upload":
-        return HttpResponseRedirect(reverse('wfautomation:upload_site_survey', kwargs={'site_id': site_id,
-                                                                               'task_name': task_name,
-                                                                               'ins_id': ins_id}))
-    elif task_name == "generate_report":
-        return HttpResponseRedirect(reverse('wfautomation:generate_site_survey_report2', kwargs={'site_id': site_id,
-                                                                               'task_name': task_name,
-                                                                               'ins_id': ins_id}))
+    # if task_name == "poi":
+    #     return HttpResponseRedirect(reverse('wfautomation:define_poi', kwargs={'task_name': task_name,
+    #                                                                            'site_id': site_id,
+    #                                                                            'ins_id': ins_id}))
+    # elif task_name == "documents_upload":
+    #     return HttpResponseRedirect(reverse('wfautomation:upload_site_survey', kwargs={'site_id': site_id,
+    #                                                                            'task_name': task_name,
+    #                                                                            'ins_id': ins_id}))
+    # elif task_name == "generate_report":
+    #     return HttpResponseRedirect(reverse('wfautomation:generate_site_survey_report2', kwargs={'site_id': site_id,
+    #                                                                            'task_name': task_name,
+    #                                                                            'ins_id': ins_id}))
 
     return HttpResponseRedirect(reverse('sitedb:milestone_task', kwargs={'task_name': task_name, 'site_id': site_id}))
 
@@ -132,6 +143,17 @@ def assign_task(request, task_name, site_id, ins_id):
         new_log = SiteLogInfo()
         new_log.log_user = request.user.get_username()
         new_log.log_site_id = site_id
+
+        if task_name in ACTIVATION_LIST_READY:
+            new_log.log_major_milestone = 'site_list_ready'
+        elif task_name in ACTIVATION_ACTIVATION_READY:
+            new_log.log_major_milestone = 'site_activation_ready'
+        elif task_name in ACTIVATION_POST_ACTIVATION:
+            new_log.log_major_milestone = 'site_post_activation'
+
+        new_log.log_sub_milestone = task_name
+        new_log.log_operation_type = 'single_assign'
+
         new_log.log_info = 'Task {} assigned to {}'.format(task_name, assignee_name)
         new_log.save()
 
@@ -168,6 +190,17 @@ def unclaim_task(request, task_name, site_id, ins_id):
     new_log = SiteLogInfo()
     new_log.log_user = request.user.get_username()
     new_log.log_site_id = site_id
+
+    if task_name in ACTIVATION_LIST_READY:
+        new_log.log_major_milestone = 'site_list_ready'
+    elif task_name in ACTIVATION_ACTIVATION_READY:
+        new_log.log_major_milestone = 'site_activation_ready'
+    elif task_name in ACTIVATION_POST_ACTIVATION:
+        new_log.log_major_milestone = 'site_post_activation'
+
+    new_log.log_sub_milestone = task_name
+    new_log.log_operation_type = 'single_unclaim'
+
     new_log.log_info = 'Task {} unclaimed'.format(task_name)
     new_log.save()
 
@@ -184,6 +217,17 @@ def complete_task(request, task_name, site_id, ins_id):
     new_log = SiteLogInfo()
     new_log.log_user = request.user.get_username()
     new_log.log_site_id = site_id
+
+    if task_name in ACTIVATION_LIST_READY:
+        new_log.log_major_milestone = 'site_list_ready'
+    elif task_name in ACTIVATION_ACTIVATION_READY:
+        new_log.log_major_milestone = 'site_activation_ready'
+    elif task_name in ACTIVATION_POST_ACTIVATION:
+        new_log.log_major_milestone = 'site_post_activation'
+
+    new_log.log_sub_milestone = task_name
+    new_log.log_operation_type = 'single_complete'
+
     new_log.log_info = 'Task {} completed'.format(task_name)
     new_log.save()
 

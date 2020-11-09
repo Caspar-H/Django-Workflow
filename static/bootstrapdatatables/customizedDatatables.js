@@ -22,5 +22,9 @@ $(document).ready(function() {
             },
             'colvis'
         ]
+    },
+        {
+        "pageLength": 50
     } );
+
 } );

@@ -45,13 +45,27 @@ class SiteSwap(models.Model):
 
 
 class SiteLogInfo(models.Model):
-    log_site_id = models.CharField(max_length=16, verbose_name='log_site_id')
+    log_site_id = models.CharField(max_length=16, null=True, verbose_name='log_site_id')
 
     log_created = models.DateTimeField(editable=False)
     log_modified = models.DateTimeField()
 
-    log_info = models.CharField(max_length=128)
+    # if log_datetime_info is null, datetime info is collected from log_created/modified.
+    # it is used in early stage when some of milestone info cannot be updated in time.
+    log_datetime_info = models.DateTimeField(null=True)
+
+    log_info = models.CharField(max_length=128, null=True)
     log_user = models.CharField(max_length=64, verbose_name='log_user', default='None')
+
+    log_major_milestone = models.CharField(max_length=64, null=True)
+    log_sub_milestone = models.CharField(max_length=128, null=True)
+
+    # operation type
+    # 1. single_claim, single_complete, single_assign,
+    # 2. batch_claim, batch_complete,
+    # 3. workflow_newsite_initialization, workflow_status_mapping,
+    # 4. data_newsite_initialization, data_status_mapping,
+    log_operation_type = models.CharField(max_length=32, default='undefined')
 
     def save(self, *args, **kwargs):
         """ On save, update timestamps """
