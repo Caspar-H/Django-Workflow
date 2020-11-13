@@ -151,8 +151,6 @@ def load_site_data_activation(request):
 
         new_log.save()
 
-
-
     return HttpResponse('Data Loaded & Site Status Initialized')
 
 

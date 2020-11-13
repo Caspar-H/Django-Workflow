@@ -11,7 +11,8 @@
 
     <!-- Bootstrap Datatable styles for this page -->
     <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
-    <link href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet"
+          type="text/css">
 
 
 {% endblock %}
@@ -19,28 +20,144 @@
 {% block breadcrumb %}
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page">Activation Site Table</li>
+{#            <li class="breadcrumb-item"><a href="{% url 'sitedb:site_list_activation' %}">Small Cell Activation Program</a></li>#}
+            <li class="breadcrumb-item active" aria-current="page">Small Cell Activation Program</li>
         </ol>
     </nav>
 {% endblock %}
 
 
 {% block content %}
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Program Overview</h1>
+        </div>
+        <div class="row">
+
+            <!-- Overview Card  -->
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-s font-weight-bold text-primary text-uppercase mb-1">Program: Small
+                                    Cell Activation
+                                </div>
+                                {#                                <div class="h5 mb-0 font-weight-bold text-gray-800">Small Cell Activation</div>#}
+                                <div class="text-s font-weight-bold text-gray-800">
+                                    Total: {{ total_number }} sites
+                                </div>
+                                <div class="text-s font-weight-bold text-gray-800">
+                                    Completed: {{ completed }}</div>
+                                <div class="text-s font-weight-bold text-gray-800">
+                                    Ongoing: {{ ongoing }}</div>
+                                <div class="text-s font-weight-bold text-gray-800">
+                                    Not Started: {{ not_started }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-phone fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Ongoing Site Status</h1>
+        </div>
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <div>
+                {#            <a href="{% url 'fileupload:documents_folder' %}?prefix={{ "site/"|add:site_detail_info.site_id|add:"/" }}"#}
+                {#               class="btn btn-info btn-icon-split btn-sm float-md-right mr-2">#}
+                {#                            <span class="icon text-white-50">#}
+                {#                                <i class="fas fa-trash"></i>#}
+                {#                            </span>#}
+                {#                <span class="text">Site Documents</span>#}
+                {#            </a>#}
+                <a href="{% url 'sitedb:milestone_summary_activation' submilestone_type='all' %}"
+                   class="btn btn-primary btn-icon-split btn-sm float-md-right mr-1">
+                                            <span class="icon text-white-50">
+                                                <i class="fas fa-align-justify"></i>
+                                            </span>
+                    <span class="text">[All Milestones]</span>
+                </a>
+                <a href="{% url 'sitedb:milestone_summary_activation' submilestone_type='post_activation' %}"
+                   class="btn btn-primary btn-icon-split btn-sm float-md-right mr-2">
+                                            <span class="icon text-white-50">
+                                                <i class="fas fa-align-justify"></i>
+                                            </span>
+                    <span class="text">Post Activation</span>
+                </a>
+                <a href="{% url 'sitedb:milestone_summary_activation' submilestone_type='activation' %}"
+                   class="btn btn-primary btn-icon-split btn-sm float-md-right mr-2">
+                                            <span class="icon text-white-50">
+                                                <i class="fas fa-align-justify"></i>
+                                            </span>
+                    <span class="text">Activation</span>
+                </a>
+                <a href="{% url 'sitedb:milestone_summary_activation' submilestone_type='pre_activation' %}"
+                   class="btn btn-primary btn-icon-split btn-sm float-md-right mr-1">
+                                            <span class="icon text-white-50">
+                                                <i class="fas fa-align-justify"></i>
+                                            </span>
+                    <span class="text">Pre Activation</span>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-12 col-lg-7">
+                <div class="card shadow mb-4">
+                    <!-- Card Header - Dropdown -->
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Ongoing Site Status</h6>
+                        <div class="dropdown no-arrow">
+                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                               data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                 aria-labelledby="dropdownMenuLink">
+                                <div class="dropdown-header">Dropdown Header:</div>
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <div class="chart-area">
+                            <canvas id="ongoingStatusBarChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
 
     <div class="container-fluid">
 
         <!-- Page Heading -->
         {#    <h1 class="h3 mb-2 text-gray-800">Small Cell Site Table</h1>#}
-
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Site Table</h1>
+        </div>
 
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Site Table: {{ total_number }} sites in total</h6>
-            </div>
+            {#            <div class="card-header py-3">#}
+            {#                <h6 class="m-0 font-weight-bold text-primary">Site Table: {{ total_number }} sites in total</h6>#}
+            {#            </div>#}
             <div class="card-body">
                 <div class="table-responsive">
-{#                    <table class="table table-bordered display" id="dataTable" width="100%" cellspacing="0">#}
+                    {#                    <table class="table table-bordered display" id="dataTable" width="100%" cellspacing="0">#}
                     <table id="example" class="display nowrap" style="width:100%">
                         <thead>
                         <tr>
@@ -80,15 +197,16 @@
 
                         {% for site in site_data %}
                             <tr>
-                                <td><a href="{% url 'sitedb:site_detail_info' site.site_id %}">{{ site.site_id }}</a></td>
-                                <td>{{ site.site_name}}</td>
-                                <td>{{ site.site_lat}}</td>
-                                <td>{{ site.site_long}}</td>
+                                <td><a href="{% url 'sitedb:site_detail_info' site.site_id %}">{{ site.site_id }}</a>
+                                </td>
+                                <td>{{ site.site_name }}</td>
+                                <td>{{ site.site_lat }}</td>
+                                <td>{{ site.site_long }}</td>
                                 <td>{{ site.site_state }}</td>
                                 <td>{{ site.site_pole_owner }}</td>
                                 <td>{{ site.site_pole_id }}</td>
-                                <td>{{ site.site_activation.activation_schedule}}</td>
-                                <td>{{ site.site_activation.activation_status}}</td>
+                                <td>{{ site.site_activation.activation_schedule }}</td>
+                                <td>{{ site.site_activation.activation_status }}</td>
                                 <td>{{ site.site_rfnsa_id|default:"-" }}</td>
                                 <td>{{ site.site_acma_id|default:"-" }}</td>
                                 <td>{{ site.site_vha_id|default:"-" }}</td>
@@ -112,11 +230,11 @@
 {% block script %}
 
     <!-- Page level plugins -->
-{#    <script src="{% static 'vendor/datatables/jquery.dataTables.min.js' %}"></script>#}
-{#    <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>#}
+    {#    <script src="{% static 'vendor/datatables/jquery.dataTables.min.js' %}"></script>#}
+    {#    <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>#}
 
     <!-- Page level custom scripts -->
-{#    <script src="{% static 'js/demo/datatables-demo.js' %}"></script>#}
+    {#    <script src="{% static 'js/demo/datatables-demo.js' %}"></script>#}
 
     <!-- Bootstrap Datatable styles for this page -->
     <script src="{% static 'bootstrapdatatables/customizedDatatables.js' %}"></script>
@@ -131,4 +249,106 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            var ctx = document.getElementById("ongoingStatusBarChart");
+            var myBarChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: {{ ongoing_bar_legend | safe }},
+                    datasets: [{
+                        label: "Status",
+                        backgroundColor: "#4e73df",
+                        hoverBackgroundColor: "#132969",
+                        borderColor: "#4e73df",
+                        data: {{ ongoing_bar_list | safe }},
+                    },
+                        {#{#}
+                        {#    label: "Optus",#}
+                        {#    backgroundColor: "#f6c23e",#}
+                        {#    hoverBackgroundColor: "#7e5c06",#}
+                        {#    borderColor: "#f6c23e",#}
+                        {#    data: {{ bar_region.Optus | safe }},#}
+                        {#}, #}
+                        {#{#}
+                        {#    label: "Vodafone",#}
+                        {#    backgroundColor: "#e74a3b",#}
+                        {#    hoverBackgroundColor: "#77180f",#}
+                        {#    borderColor: "#e74a3b",#}
+                        {#    data: {{ bar_region.Vodafone }},#}
+                        {#}#}
+                    ],
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    layout: {
+                        padding: {
+                            left: 10,
+                            right: 25,
+                            top: 25,
+                            bottom: 0
+                        }
+                    },
+                    scales: {
+                        xAxes: [{
+                            time: {
+                                unit: 'region'
+                            },
+                            gridLines: {
+                                display: false,
+                                drawBorder: false
+                            },
+                            ticks: {
+                                maxTicksLimit: 10
+                            },
+                            maxBarThickness: 25,
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                min: 0,
+                                {#max: 5000,#}
+                                maxTicksLimist: 5,
+                                padding: 10,
+                                // Include a dollar sign in the ticks
+                                callback: function (value, index, values) {
+                                    return number_format(value);
+                                }
+                            },
+                            gridLines: {
+                                color: "rgb(234, 236, 244)",
+                                zeroLineColor: "rgb(234, 236, 244)",
+                                drawBorder: false,
+                                borderDash: [2],
+                                zeroLineBorderDash: [2]
+                            }
+                        }],
+                    },
+                    legend: {
+                        display: true
+                    },
+                    tooltips: {
+                        titleMarginBottom: 10,
+                        titleFontColor: '#6e707e',
+                        titleFontSize: 14,
+                        backgroundColor: "rgb(255,255,255)",
+                        bodyFontColor: "#858796",
+                        borderColor: '#dddfeb',
+                        borderWidth: 1,
+                        xPadding: 15,
+                        yPadding: 15,
+                        displayColors: false,
+                        caretPadding: 10,
+                        callbacks: {
+                            label: function (tooltipItem, chart) {
+                                var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+                                return datasetLabel + ': ' + number_format(tooltipItem.yLabel);
+                            }
+                        }
+                    },
+                }
+            });
+        })
+    </script>
 {% endblock %}
+

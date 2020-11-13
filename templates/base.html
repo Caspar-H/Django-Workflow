@@ -179,56 +179,73 @@
                 <span>Site Info</span></a>
         </li>
 
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'sitedb:milestone_overview' %}">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Milestones</span></a>
-        </li>
-
 {#        <li class="nav-item">#}
-{#            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"#}
-{#               aria-expanded="true" aria-controls="collapseUtilities">#}
-{#                <i class="fas fa-fw fa-calendar"></i>#}
-{#                <span>Task</span>#}
-{#            </a>#}
-{#            <div id="collapsePages" class="collapse" aria-labelledby="collapsePages"#}
-{#                 data-parent="#accordionSidebar">#}
-{#                <div class="bg-white py-2 collapse-inner rounded">#}
-{#                    <h6 class="collapse-header">Content:</h6>#}
-{#                    <a class="collapse-item" href="{% url 'sitedb:my_task' %}">My Task</a>#}
-{#                    <a class="collapse-item" href="{% url 'sitedb:my_group_task' %}">My Group Task</a>#}
-{#                </div>#}
-{#            </div>#}
+{#            <a class="nav-link" href="{% url 'sitedb:milestone_overview' %}">#}
+{#                <i class="fas fa-fw fa-tachometer-alt"></i>#}
+{#                <span>Milestones</span></a>#}
 {#        </li>#}
 
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'sitedb:my_task' %}">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>My Task</span></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'sitedb:my_group_task' %}">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>My Group Task</span></a>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'fileupload:documents_folder' %}">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Documents</span></a>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'wfautomation:pdf_extraction' %}">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>PDF Extraction</span></a>
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+               aria-expanded="true" aria-controls="collapseUtilities">
+                <i class="fas fa-fw fa-calendar"></i>
+                <span>Program</span>
+            </a>
+            <div id="collapsePages" class="collapse" aria-labelledby="collapsePages"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Content:</h6>
+                    <a class="collapse-item" href="{% url 'sitedb:site_list_activation' %}">Small Cell Activation</a>
+                    <a class="collapse-item" href="{% url 'sitedb:site_list_swap' %}">Small Cell Swap</a>
+                </div>
+            </div>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'wfautomation:generate_site_survey_report' %}">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Generate Report</span></a>
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePagesTwo"
+               aria-expanded="true" aria-controls="collapseUtilities">
+                <i class="fas fa-fw fa-calendar"></i>
+                <span>Task Operations</span>
+            </a>
+            <div id="collapsePagesTwo" class="collapse" aria-labelledby="collapsePagesTwo"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Content:</h6>
+                    <a class="collapse-item" href="#">Batch Assign</a>
+                    <a class="collapse-item" href="{% url 'sitedb:batch_operation' operation_type='batch_claim' %}">Batch Claim</a>
+                    <a class="collapse-item" href="{% url 'sitedb:batch_operation' operation_type='batch_complete' %}">Batch Complete</a>
+                </div>
+            </div>
         </li>
+
+{#        <li class="nav-item">#}
+{#            <a class="nav-link" href="{% url 'sitedb:my_task' %}">#}
+{#                <i class="fas fa-fw fa-tachometer-alt"></i>#}
+{#                <span>My Task</span></a>#}
+{#        </li>#}
+{#        <li class="nav-item">#}
+{#            <a class="nav-link" href="{% url 'sitedb:my_group_task' %}">#}
+{#                <i class="fas fa-fw fa-tachometer-alt"></i>#}
+{#                <span>My Group Task</span></a>#}
+{#        </li>#}
+
+{#        <li class="nav-item">#}
+{#            <a class="nav-link" href="{% url 'fileupload:documents_folder' %}">#}
+{#                <i class="fas fa-fw fa-tachometer-alt"></i>#}
+{#                <span>Documents</span></a>#}
+{#        </li>#}
+{##}
+{#        <li class="nav-item">#}
+{#            <a class="nav-link" href="{% url 'wfautomation:pdf_extraction' %}">#}
+{#                <i class="fas fa-fw fa-tachometer-alt"></i>#}
+{#                <span>PDF Extraction</span></a>#}
+{#        </li>#}
+{##}
+{#        <li class="nav-item">#}
+{#            <a class="nav-link" href="{% url 'wfautomation:generate_site_survey_report' %}">#}
+{#                <i class="fas fa-fw fa-tachometer-alt"></i>#}
+{#                <span>Generate Report</span></a>#}
+{#        </li>#}
 
         <!-- Sidebar Toggler (Sidebar) -->
         <div class="text-center d-none d-md-inline">

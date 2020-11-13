@@ -22,7 +22,9 @@
 {% block breadcrumb %}
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page">Activation Site Table</li>
+{#            <li class="breadcrumb-item active" aria-current="page">Activation Site Table</li>#}
+            <li class="breadcrumb-item"><a href="{% url 'sitedb:site_list_activation' %}">Small Cell Activation Program</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Sub-Milestone Table</li>
         </ol>
     </nav>
 {% endblock %}

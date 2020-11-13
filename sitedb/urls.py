@@ -38,12 +38,13 @@ urlpatterns = [
     path('load_site_data_swap/', views.load_site_data_swap, name='load_site_data_swap'),
 
     # batch operation
+    path('batch_operation/<str:operation_type>/', views.batch_operation, name='batch_operation'),
     path('batch_claim_task/', views.batch_claim_task, name='batch_claim_task'),
     path('batch_complete_task/', views.batch_complete_task, name='batch_complete_task'),
     path('batch_milestone_update/', views.batch_milestone_update, name='batch_milestone_update'),
 
     # milestone table overview
-    path('milestone_summary_activation/', views.milestone_summary_activation, name='milestone_summary_activation'),
+    path('milestone_summary_activation/<str:submilestone_type>/', views.milestone_summary_activation, name='milestone_summary_activation'),
 
 
     # individual tasks / POI, Documents Upload, and Generate Report

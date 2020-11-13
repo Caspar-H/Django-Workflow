@@ -56,11 +56,11 @@ def claim_task(request, task_name, site_id, ins_id):
     new_log.log_user = request.user.get_username()
     new_log.log_site_id = site_id
     if task_name in ACTIVATION_LIST_READY:
-        new_log.log_major_milestone = 'site_list_ready'
+        new_log.log_major_milestone = 'pre_activation'
     elif task_name in ACTIVATION_ACTIVATION_READY:
-        new_log.log_major_milestone = 'site_activation_ready'
+        new_log.log_major_milestone = 'activation'
     elif task_name in ACTIVATION_POST_ACTIVATION:
-        new_log.log_major_milestone = 'site_post_activation'
+        new_log.log_major_milestone = 'post_activation'
 
     new_log.log_sub_milestone = task_name
     new_log.log_operation_type = 'single_claim'
@@ -145,11 +145,11 @@ def assign_task(request, task_name, site_id, ins_id):
         new_log.log_site_id = site_id
 
         if task_name in ACTIVATION_LIST_READY:
-            new_log.log_major_milestone = 'site_list_ready'
+            new_log.log_major_milestone = 'pre_activation'
         elif task_name in ACTIVATION_ACTIVATION_READY:
-            new_log.log_major_milestone = 'site_activation_ready'
+            new_log.log_major_milestone = 'activation'
         elif task_name in ACTIVATION_POST_ACTIVATION:
-            new_log.log_major_milestone = 'site_post_activation'
+            new_log.log_major_milestone = 'post_activation'
 
         new_log.log_sub_milestone = task_name
         new_log.log_operation_type = 'single_assign'
@@ -192,11 +192,11 @@ def unclaim_task(request, task_name, site_id, ins_id):
     new_log.log_site_id = site_id
 
     if task_name in ACTIVATION_LIST_READY:
-        new_log.log_major_milestone = 'site_list_ready'
+        new_log.log_major_milestone = 'pre_activation'
     elif task_name in ACTIVATION_ACTIVATION_READY:
-        new_log.log_major_milestone = 'site_activation_ready'
+        new_log.log_major_milestone = 'activation'
     elif task_name in ACTIVATION_POST_ACTIVATION:
-        new_log.log_major_milestone = 'site_post_activation'
+        new_log.log_major_milestone = 'post_activation'
 
     new_log.log_sub_milestone = task_name
     new_log.log_operation_type = 'single_unclaim'
@@ -219,11 +219,11 @@ def complete_task(request, task_name, site_id, ins_id):
     new_log.log_site_id = site_id
 
     if task_name in ACTIVATION_LIST_READY:
-        new_log.log_major_milestone = 'site_list_ready'
+        new_log.log_major_milestone = 'pre_activation'
     elif task_name in ACTIVATION_ACTIVATION_READY:
-        new_log.log_major_milestone = 'site_activation_ready'
+        new_log.log_major_milestone = 'activation'
     elif task_name in ACTIVATION_POST_ACTIVATION:
-        new_log.log_major_milestone = 'site_post_activation'
+        new_log.log_major_milestone = 'post_activation'
 
     new_log.log_sub_milestone = task_name
     new_log.log_operation_type = 'single_complete'

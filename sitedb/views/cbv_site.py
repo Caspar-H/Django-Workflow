@@ -47,6 +47,23 @@ class ActivationListView(ListView):
         context = super(ActivationListView, self).get_context_data(**kwargs)
         # To call site_current_percentage in Templates , {{site_current_percentage}}
         context['total_number'] = Site.objects.all().filter(site_activation__activation_plan=True).count()
+        context['not_started'] = Site.objects.all().filter(site_activation__activation_plan=True).filter(
+            site_activation__activation_status='not_started').count()
+        context['completed'] = Site.objects.all().filter(site_activation__activation_plan=True).filter(
+            site_activation__activation_status='activation_completed').count()
+        context['ongoing'] = context['total_number'] - context['not_started'] - context['completed']
+
+        # bar chart - ongoing site status
+        context['ongoing_bar_legend'] = ['Pre Activation', 'Activation', 'Post Activation']
+
+        ongoing_pre_activation = Site.objects.all().filter(site_activation__activation_plan=True).filter(
+            site_activation__activation_status='pre_activation').count()
+        ongoing_activation = Site.objects.all().filter(site_activation__activation_plan=True).filter(
+            site_activation__activation_status='activation').count()
+        ongoing_post_activation = Site.objects.all().filter(site_activation__activation_plan=True).filter(
+            site_activation__activation_status='post_activation').count()
+
+        context['ongoing_bar_list'] = [ongoing_pre_activation, ongoing_activation, ongoing_post_activation]
         return context
 
 

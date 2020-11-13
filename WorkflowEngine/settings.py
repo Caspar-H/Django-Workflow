@@ -177,15 +177,26 @@ MINIO_HOST = 'localhost:9000'
 # Camunda host address
 CAMUNDA_HOST = 'http://localhost:8080/engine-rest'
 WORKFLOW_NAME = 'SITESURVEY'
-ACTIVATION_WORKFLOW_NAME = 'rollout_workflow_v1'
+ACTIVATION_WORKFLOW_NAME = 'rollout_workflow_v2'
 
 # Activation Program sub milestone list
-ACTIVATION_LIST_READY = ['neighbouring_sites', 'cme_dump', 'testing_scenario', 'testing_route', 'acma_check',
-                         'emeg_status', 'l1800_simulations', 'overlap_analysis',
-                         'cell_list_update_based_on_simulation', 'site_power_up', 'shut_down_close_macrol700',
-                         'activate_small_cell', 'pre_testing', 'collect_tx_design_info', 'allocate_id',
-                         'pci_conflict', 'rf_script', 'check_rf_script', 'ran_script', 'dark_fibre_check',
-                         'tx_cutover', 'apply_cr', 'rfnsa_update', 'cell_group_define', ]
-ACTIVATION_ACTIVATION_READY = ['site_activation', 'service_verification', 'parameter_audit', 'day1_kpi_monitoring', ]
-ACTIVATION_POST_ACTIVATION = ['ric_checklist', 'isn_report_and_upload', 'apply_cr_for_phase2_parameters',
-                              'phase2_parameters_kpi_monitoring', 'rf_script_for_phase2_parameters', 'dsa7_report', ]
+# ACTIVATION_LIST_READY = ['neighbouring_sites', 'cme_dump', 'testing_scenario', 'testing_route', 'acma_check',
+#                          'emeg_status', 'l1800_simulations', 'overlap_analysis',
+#                          'cell_list_update_based_on_simulation', 'site_power_up', 'shut_down_close_macrol700',
+#                          'activate_small_cell', 'pre_testing', 'collect_tx_design_info', 'allocate_id',
+#                          'pci_conflict', 'rf_script', 'check_rf_script', 'ran_script', 'dark_fibre_check',
+#                          'tx_cutover', 'apply_cr', 'rfnsa_update', 'cell_group_define', ]
+ACTIVATION_LIST_READY = [
+    'repowering_up', 'inter_transmission_merge', 'rfi', 'rfnsa_check', 'acma_check', 'bbu_status_check', 'shutdown_cr',
+    'ssv_pre_cutover', 'naming_convention', 'bbu_cutover_cr', 'bbu_cutover', 'site_list_check', 'overlap_simulation',
+    'pci_conflict', 'rfnsa_update', 'acma_update', 'prs_cellgroup', 'rf_script', 'activation_cr', 'emeg_check',
+]
+# ACTIVATION_ACTIVATION_READY = ['site_activation', 'service_verification', 'parameter_audit', 'day1_kpi_monitoring', ]
+ACTIVATION_ACTIVATION_READY = [
+    'cell_activation', 'ssv_post_cutover',
+]
+# ACTIVATION_POST_ACTIVATION = ['ric_checklist', 'isn_report_and_upload', 'apply_cr_for_phase2_parameters',
+#                               'phase2_parameters_kpi_monitoring', 'rf_script_for_phase2_parameters', 'dsa7_report', ]
+ACTIVATION_POST_ACTIVATION = [
+    'service_notification', 'isn_upload', 'dsa7_upload',
+]
