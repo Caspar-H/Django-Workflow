@@ -240,6 +240,9 @@
       <bpmn:outgoing>Flow_1s8u9vw</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:userTask id="emeg_check" name="EMEG Check" camunda:candidateGroups="tpgeme">
+      <bpmn:documentation>Form B Ezone letters 
+RFNSA eme ready
+emeg orders</bpmn:documentation>
       <bpmn:incoming>Flow_0slhizv</bpmn:incoming>
       <bpmn:outgoing>Flow_08n1gzu</bpmn:outgoing>
     </bpmn:userTask>
@@ -279,14 +282,14 @@
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="rollout_workflow_v2">
-      <bpmndi:BPMNEdge id="Flow_08raqza_di" bpmnElement="Flow_08raqza">
-        <di:waypoint x="1810" y="117" />
-        <di:waypoint x="1862" y="117" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0pf8t3d_di" bpmnElement="Flow_0pf8t3d">
         <di:waypoint x="1570" y="340" />
         <di:waypoint x="1640" y="340" />
         <di:waypoint x="1640" y="142" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_08raqza_di" bpmnElement="Flow_08raqza">
+        <di:waypoint x="1810" y="117" />
+        <di:waypoint x="1862" y="117" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_10e76yq_di" bpmnElement="Flow_10e76yq">
         <di:waypoint x="1570" y="230" />
@@ -627,6 +630,9 @@
       <bpmndi:BPMNShape id="Activity_1s3bm20_di" bpmnElement="rfi">
         <dc:Bounds x="510" y="300" width="100" height="80" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1llpbj5_di" bpmnElement="rfnsa_check">
+        <dc:Bounds x="510" y="410" width="100" height="80" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0wake6n_di" bpmnElement="acma_check">
         <dc:Bounds x="510" y="520" width="100" height="80" />
       </bpmndi:BPMNShape>
@@ -693,14 +699,11 @@
       <bpmndi:BPMNShape id="Activity_01dmnk1_di" bpmnElement="isn_upload">
         <dc:Bounds x="1470" y="190" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1ur3gno_di" bpmnElement="dsa7_upload">
-        <dc:Bounds x="1470" y="300" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_181fpgj_di" bpmnElement="activation_completed">
         <dc:Bounds x="1710" y="77" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1llpbj5_di" bpmnElement="rfnsa_check">
-        <dc:Bounds x="510" y="410" width="100" height="80" />
+      <bpmndi:BPMNShape id="Activity_1ur3gno_di" bpmnElement="dsa7_upload">
+        <dc:Bounds x="1470" y="300" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
