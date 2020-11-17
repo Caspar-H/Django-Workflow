@@ -202,6 +202,22 @@
         </li>
 
         <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePagesThree"
+               aria-expanded="true" aria-controls="collapseUtilities">
+                <i class="fas fa-fw fa-calendar"></i>
+                <span>My Tasks</span>
+            </a>
+            <div id="collapsePagesThree" class="collapse" aria-labelledby="collapsePagesThree"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Content:</h6>
+                    <a class="collapse-item" href="{% url 'sitedb:my_task' %}">Tasks Under My Name</a>
+                    <a class="collapse-item" href="{% url 'sitedb:my_group_task' %}">Tasks Under My Group</a>
+                </div>
+            </div>
+        </li>
+
+        <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePagesTwo"
                aria-expanded="true" aria-controls="collapseUtilities">
                 <i class="fas fa-fw fa-calendar"></i>
@@ -217,6 +233,8 @@
                 </div>
             </div>
         </li>
+
+
 
 {#        <li class="nav-item">#}
 {#            <a class="nav-link" href="{% url 'sitedb:my_task' %}">#}

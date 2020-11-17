@@ -52,6 +52,9 @@
                             <th>Operation Time</th>
                             <th>Operator</th>
                             <th>Operation Description</th>
+                            <th>Operation Type</th>
+                            <th>Major Milestone</th>
+                            <th>Sub Milestone</th>
                         </tr>
                         </thead>
                         <tfoot>
@@ -61,6 +64,9 @@
                             <th>Operation Time</th>
                             <th>Operator</th>
                             <th>Operation Description</th>
+                            <th>Operation Type</th>
+                            <th>Major Milestone</th>
+                            <th>Sub Milestone</th>
                         </tr>
                         </tfoot>
                         <tbody>
@@ -72,6 +78,9 @@
                                 <td>{{ user_log.log_created }}</td>
                                 <td>{{ user_log.log_user }}</td>
                                 <td>{{ user_log.log_info }}</td>
+                                <td>{{ user_log.log_operation_type }}</td>
+                                <td>{{ user_log.log_major_milestone }}</td>
+                                <td>{{ user_log.log_sub_milestone }}</td>
 
                             </tr>
                         {% endfor %}

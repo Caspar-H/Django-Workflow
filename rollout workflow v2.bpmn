@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_0wpii8n" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.2.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_0wpii8n" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.7.2">
   <bpmn:process id="rollout_workflow_v2" isExecutable="true">
     <bpmn:startEvent id="StartEvent_1">
       <bpmn:outgoing>Flow_0ltv893</bpmn:outgoing>
@@ -32,6 +32,9 @@
       <bpmn:outgoing>Flow_0ik7npe</bpmn:outgoing>
       <bpmn:outgoing>Flow_17ox2z8</bpmn:outgoing>
       <bpmn:outgoing>Flow_1556hnd</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1pn9urf</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0e08o64</bpmn:outgoing>
+      <bpmn:outgoing>Flow_10n8uy6</bpmn:outgoing>
     </bpmn:parallelGateway>
     <bpmn:sequenceFlow id="Flow_0bq6v8i" sourceRef="Gateway_1nbbpy5" targetRef="repowering_up" />
     <bpmn:sequenceFlow id="Flow_0mz99y8" sourceRef="Gateway_1nbbpy5" targetRef="inter_transmission_merge" />
@@ -58,11 +61,14 @@
       <bpmn:incoming>Flow_0c8hcvz</bpmn:incoming>
       <bpmn:incoming>Flow_1nm6rbj</bpmn:incoming>
       <bpmn:incoming>Flow_1s8u9vw</bpmn:incoming>
-      <bpmn:incoming>Flow_08n1gzu</bpmn:incoming>
       <bpmn:incoming>Flow_06dn9bu</bpmn:incoming>
       <bpmn:incoming>Flow_0ik7npe</bpmn:incoming>
       <bpmn:incoming>Flow_17ox2z8</bpmn:incoming>
       <bpmn:incoming>Flow_1556hnd</bpmn:incoming>
+      <bpmn:incoming>Flow_16ehlwj</bpmn:incoming>
+      <bpmn:incoming>Flow_13hhhmw</bpmn:incoming>
+      <bpmn:incoming>Flow_027289o</bpmn:incoming>
+      <bpmn:incoming>Flow_0slhizv</bpmn:incoming>
       <bpmn:outgoing>Flow_10rvnym</bpmn:outgoing>
     </bpmn:parallelGateway>
     <bpmn:sequenceFlow id="Flow_10rvnym" sourceRef="Gateway_1a2c78m" targetRef="activation" />
@@ -118,7 +124,7 @@
     <bpmn:sequenceFlow id="Flow_1iyv1hd" sourceRef="Gateway_1nbbpy5" targetRef="prs_cellgroup" />
     <bpmn:sequenceFlow id="Flow_1aczquf" sourceRef="Gateway_1nbbpy5" targetRef="rf_script" />
     <bpmn:sequenceFlow id="Flow_1b2t9gq" sourceRef="Gateway_1nbbpy5" targetRef="activation_cr" />
-    <bpmn:sequenceFlow id="Flow_0slhizv" sourceRef="Gateway_1nbbpy5" targetRef="emeg_check" />
+    <bpmn:sequenceFlow id="Flow_0slhizv" sourceRef="Gateway_1nbbpy5" targetRef="Gateway_1a2c78m" />
     <bpmn:sequenceFlow id="Flow_06dn9bu" sourceRef="Gateway_1nbbpy5" targetRef="Gateway_1a2c78m" />
     <bpmn:sequenceFlow id="Flow_0ik7npe" sourceRef="Gateway_1nbbpy5" targetRef="Gateway_1a2c78m" />
     <bpmn:sequenceFlow id="Flow_17ox2z8" sourceRef="Gateway_1nbbpy5" targetRef="Gateway_1a2c78m" />
@@ -126,7 +132,6 @@
     <bpmn:sequenceFlow id="Flow_0c8hcvz" sourceRef="prs_cellgroup" targetRef="Gateway_1a2c78m" />
     <bpmn:sequenceFlow id="Flow_1nm6rbj" sourceRef="rf_script" targetRef="Gateway_1a2c78m" />
     <bpmn:sequenceFlow id="Flow_1s8u9vw" sourceRef="activation_cr" targetRef="Gateway_1a2c78m" />
-    <bpmn:sequenceFlow id="Flow_08n1gzu" sourceRef="emeg_check" targetRef="Gateway_1a2c78m" />
     <bpmn:sequenceFlow id="Flow_19lq1tp" sourceRef="post_activation" targetRef="Gateway_0wpci6l" />
     <bpmn:parallelGateway id="Gateway_0wpci6l">
       <bpmn:incoming>Flow_19lq1tp</bpmn:incoming>
@@ -239,13 +244,6 @@
       <bpmn:incoming>Flow_1b2t9gq</bpmn:incoming>
       <bpmn:outgoing>Flow_1s8u9vw</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:userTask id="emeg_check" name="EMEG Check" camunda:candidateGroups="tpgeme">
-      <bpmn:documentation>Form B Ezone letters 
-RFNSA eme ready
-emeg orders</bpmn:documentation>
-      <bpmn:incoming>Flow_0slhizv</bpmn:incoming>
-      <bpmn:outgoing>Flow_08n1gzu</bpmn:outgoing>
-    </bpmn:userTask>
     <bpmn:userTask id="activation" name="Activation" camunda:candidateGroups="tpgrf">
       <bpmn:incoming>Flow_10rvnym</bpmn:incoming>
       <bpmn:outgoing>Flow_08w2ukd</bpmn:outgoing>
@@ -279,6 +277,24 @@ emeg orders</bpmn:documentation>
       <bpmn:outgoing>Flow_0pf8t3d</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:sequenceFlow id="Flow_0pf8t3d" sourceRef="dsa7_upload" targetRef="Gateway_1d8n9kw" />
+    <bpmn:sequenceFlow id="Flow_1pn9urf" sourceRef="Gateway_1nbbpy5" targetRef="form_b_ezone_letter" />
+    <bpmn:sequenceFlow id="Flow_0e08o64" sourceRef="Gateway_1nbbpy5" targetRef="rfnsa_eme_ready" />
+    <bpmn:sequenceFlow id="Flow_10n8uy6" sourceRef="Gateway_1nbbpy5" targetRef="emeg_order" />
+    <bpmn:userTask id="form_b_ezone_letter" name="Form B Ezone Letter" camunda:candidateGroups="tpgeme">
+      <bpmn:incoming>Flow_1pn9urf</bpmn:incoming>
+      <bpmn:outgoing>Flow_16ehlwj</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="rfnsa_eme_ready" name="RFNSA EME Ready" camunda:candidateGroups="tpgeme">
+      <bpmn:incoming>Flow_0e08o64</bpmn:incoming>
+      <bpmn:outgoing>Flow_13hhhmw</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="emeg_order" name="EMEG Order" camunda:candidateGroups="tpgeme">
+      <bpmn:incoming>Flow_10n8uy6</bpmn:incoming>
+      <bpmn:outgoing>Flow_027289o</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_16ehlwj" sourceRef="form_b_ezone_letter" targetRef="Gateway_1a2c78m" />
+    <bpmn:sequenceFlow id="Flow_13hhhmw" sourceRef="rfnsa_eme_ready" targetRef="Gateway_1a2c78m" />
+    <bpmn:sequenceFlow id="Flow_027289o" sourceRef="emeg_order" targetRef="Gateway_1a2c78m" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="rollout_workflow_v2">
@@ -334,11 +350,6 @@ emeg orders</bpmn:documentation>
         <di:waypoint x="1330" y="117" />
         <di:waypoint x="1375" y="117" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_08n1gzu_di" bpmnElement="Flow_08n1gzu">
-        <di:waypoint x="610" y="2210" />
-        <di:waypoint x="680" y="2210" />
-        <di:waypoint x="680" y="142" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1s8u9vw_di" bpmnElement="Flow_1s8u9vw">
         <di:waypoint x="610" y="2100" />
         <di:waypoint x="680" y="2100" />
@@ -371,9 +382,8 @@ emeg orders</bpmn:documentation>
         <di:waypoint x="655" y="117" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0slhizv_di" bpmnElement="Flow_0slhizv">
-        <di:waypoint x="440" y="142" />
-        <di:waypoint x="440" y="2210" />
-        <di:waypoint x="510" y="2210" />
+        <di:waypoint x="465" y="117" />
+        <di:waypoint x="655" y="117" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1b2t9gq_di" bpmnElement="Flow_1b2t9gq">
         <di:waypoint x="440" y="142" />
@@ -594,6 +604,36 @@ emeg orders</bpmn:documentation>
         <di:waypoint x="228" y="117" />
         <di:waypoint x="270" y="117" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1pn9urf_di" bpmnElement="Flow_1pn9urf">
+        <di:waypoint x="440" y="142" />
+        <di:waypoint x="440" y="2210" />
+        <di:waypoint x="510" y="2210" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0e08o64_di" bpmnElement="Flow_0e08o64">
+        <di:waypoint x="440" y="142" />
+        <di:waypoint x="440" y="2320" />
+        <di:waypoint x="510" y="2320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_10n8uy6_di" bpmnElement="Flow_10n8uy6">
+        <di:waypoint x="440" y="142" />
+        <di:waypoint x="440" y="2430" />
+        <di:waypoint x="510" y="2430" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_16ehlwj_di" bpmnElement="Flow_16ehlwj">
+        <di:waypoint x="610" y="2210" />
+        <di:waypoint x="680" y="2210" />
+        <di:waypoint x="680" y="142" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_13hhhmw_di" bpmnElement="Flow_13hhhmw">
+        <di:waypoint x="610" y="2320" />
+        <di:waypoint x="680" y="2320" />
+        <di:waypoint x="680" y="142" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_027289o_di" bpmnElement="Flow_027289o">
+        <di:waypoint x="610" y="2430" />
+        <di:waypoint x="680" y="2430" />
+        <di:waypoint x="680" y="142" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
         <dc:Bounds x="192" y="99" width="36" height="36" />
       </bpmndi:BPMNShape>
@@ -678,9 +718,6 @@ emeg orders</bpmn:documentation>
       <bpmndi:BPMNShape id="Activity_0ltdisf_di" bpmnElement="activation_cr">
         <dc:Bounds x="510" y="2060" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1jgwcbn_di" bpmnElement="emeg_check">
-        <dc:Bounds x="510" y="2170" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1xcb3dp_di" bpmnElement="activation">
         <dc:Bounds x="750" y="77" width="100" height="80" />
       </bpmndi:BPMNShape>
@@ -704,6 +741,15 @@ emeg orders</bpmn:documentation>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1ur3gno_di" bpmnElement="dsa7_upload">
         <dc:Bounds x="1470" y="300" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ofrdjp_di" bpmnElement="form_b_ezone_letter">
+        <dc:Bounds x="510" y="2170" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0h1j7jd_di" bpmnElement="rfnsa_eme_ready">
+        <dc:Bounds x="510" y="2280" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1jednxf_di" bpmnElement="emeg_order">
+        <dc:Bounds x="510" y="2390" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

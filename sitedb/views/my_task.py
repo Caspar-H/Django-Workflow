@@ -1,14 +1,14 @@
 import requests
 from django.shortcuts import render
 
-from WorkflowEngine.settings import CAMUNDA_HOST, WORKFLOW_NAME
+from WorkflowEngine.settings import CAMUNDA_HOST, ACTIVATION_WORKFLOW_NAME
 
 
 def my_task(request):
     # business key and instance key mapping table
     url_mapping = "{}/process-instance/".format(CAMUNDA_HOST)
     query_param_mapping = {
-        "processDefinitionKey": WORKFLOW_NAME
+        "processDefinitionKey": ACTIVATION_WORKFLOW_NAME
     }
     r_mapping = requests.get(url_mapping, params=query_param_mapping).json()
     business_key_mapping = {}
@@ -18,7 +18,7 @@ def my_task(request):
     # Get site list under a certain user
     url_user_task = "{}/task".format(CAMUNDA_HOST)
     query_param = {
-        "processDefinitionKey": WORKFLOW_NAME,
+        "processDefinitionKey": ACTIVATION_WORKFLOW_NAME,
         "assignee": request.user.get_username(),
     }
     r_user_task = requests.get(url_user_task, params=query_param).json()
@@ -40,7 +40,7 @@ def my_group_task(request):
     # business key and instance key mapping table
     url_mapping = "{}/process-instance/".format(CAMUNDA_HOST)
     query_param_mapping = {
-        "processDefinitionKey": WORKFLOW_NAME
+        "processDefinitionKey": ACTIVATION_WORKFLOW_NAME
     }
     r_mapping = requests.get(url_mapping, params=query_param_mapping).json()
     business_key_mapping = {}
@@ -53,11 +53,12 @@ def my_group_task(request):
         "member": request.user.get_username()
     }
     r_group_name = requests.get(url_group_name, params=query_param).json()[0]
+    print(r_group_name)
 
     # Get site list under a group
     url_group_task = "{}/task".format(CAMUNDA_HOST)
     query_param = {
-        "processDefinitionKey": WORKFLOW_NAME,
+        "processDefinitionKey": ACTIVATION_WORKFLOW_NAME,
         "candidateGroup": r_group_name['id'],
         "includeAssignedTasks": 'true'
     }
@@ -80,7 +81,7 @@ def my_group_task(request):
         # Get site list under a certain user
         url_user_task = "{}/task".format(CAMUNDA_HOST)
         query_param = {
-            "processDefinitionKey": WORKFLOW_NAME,
+            "processDefinitionKey": ACTIVATION_WORKFLOW_NAME,
             "candidateGroup": r_group_name['id'],
             "includeAssignedTasks": 'true',
             "assignee": user_name,

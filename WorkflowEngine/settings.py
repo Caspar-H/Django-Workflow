@@ -189,7 +189,8 @@ ACTIVATION_WORKFLOW_NAME = 'rollout_workflow_v2'
 ACTIVATION_LIST_READY = [
     'repowering_up', 'inter_transmission_merge', 'rfi', 'rfnsa_check', 'acma_check', 'bbu_status_check', 'shutdown_cr',
     'ssv_pre_cutover', 'naming_convention', 'bbu_cutover_cr', 'bbu_cutover', 'site_list_check', 'overlap_simulation',
-    'pci_conflict', 'rfnsa_update', 'acma_update', 'prs_cellgroup', 'rf_script', 'activation_cr', 'emeg_check',
+    'pci_conflict', 'rfnsa_update', 'acma_update', 'prs_cellgroup', 'rf_script', 'activation_cr',
+    'form_b_ezone_letter', 'rfnsa_eme_ready', 'emeg_order'
 ]
 # ACTIVATION_ACTIVATION_READY = ['site_activation', 'service_verification', 'parameter_audit', 'day1_kpi_monitoring', ]
 ACTIVATION_ACTIVATION_READY = [
